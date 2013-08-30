@@ -29,6 +29,10 @@ dev:
       delivery_strategy: none
 
 all:
+  storage:
+    class: sfSessionStorage
+    param:
+      session_name: generadorEncuestasBackend
   routing:
     class: sfPatternRouting
     param:
