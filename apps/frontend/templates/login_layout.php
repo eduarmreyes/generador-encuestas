@@ -92,7 +92,7 @@
                 	<div class="container">
                     	<a class="brand" href="#"><?php echo image_tag('rochi-logo.jpg') ?></a>
                     	<div style="margin-top:1em;">
-                        	<span><?php echo date('l\ d F, Y'); ?></span>
+                        	<span><?php echo date('d/m/Y'); ?></span>
                     	</div>               	 
                 	</div>
             	</div>

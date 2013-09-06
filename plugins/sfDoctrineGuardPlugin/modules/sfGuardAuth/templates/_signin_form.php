@@ -1,25 +1,41 @@
 <?php use_helper('I18N') ?>
 
-<form action="<?php echo url_for('@sf_guard_signin') ?>" method="post">
-  <table>
-    <tbody>
-      <?php echo $form ?>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="2">
-          <input type="submit" value="<?php echo __('Signin', null, 'sf_guard') ?>" />
-          
-          <?php $routes = $sf_context->getRouting()->getRoutes() ?>
-          <?php if (isset($routes['sf_guard_forgot_password'])): ?>
-            <a href="<?php echo url_for('@sf_guard_forgot_password') ?>"><?php echo __('Forgot your password?', null, 'sf_guard') ?></a>
-          <?php endif; ?>
-
-          <?php if (isset($routes['sf_guard_register'])): ?>
-            &nbsp; <a href="<?php echo url_for('@sf_guard_register') ?>"><?php echo __('Want to register?', null, 'sf_guard') ?></a>
-          <?php endif; ?>
-        </td>
-      </tr>
-    </tfoot>
-  </table>
+<?php echo form_tag('@sf_guard_signin', 'class=form-signin form-horizontal') ?>
+	<h1 class="form-signin-heading">Iniciar sesión | Seguridad</h1>
+	<div class="control-group">
+    	<label for="signin_username" class="control-label">Usuario: *</label>
+    	<div class="controls">
+        	<?php echo $form['username']->render() ?>
+    	</div>
+	</div>
+	<div class="control-group">
+    	<label for="signin_password" class="control-label">Contraseña: *</label>
+    	<div class="controls">
+        	<?php echo $form['password']->render() ?>
+    	</div>
+	</div>
+	<div class="control-group">
+		<label for="signin_remember" class="control-label">¿Mantener la sesión?</label>
+		<div class="controls">
+			<?php echo $form['remember']->render() ?>
+		</div>
+	</div>
+	<div class="control-group">
+    	<div class="controls">
+        	<button type="submit" class="btn btn-primary" data-loading-text="Iniciando sesión...">
+            	<?php echo __('Iniciar sesión') ?>
+            	<i class="icon-circle-arrow-right"></i>
+        	</button>
+    	</div>
+	</div>
+	<div><span class="muted">El símbolo * significa que es requerido.</span></div>
+	<?php if ($form['username']->hasError()) : ?>
+    	<div class="row-fluid">
+        	<div class="alert alert-error">
+            	<button type="button" class="close" data-dismiss="alert">&times;</button>
+            	<strong>¡Cuidado!</strong>
+            	<?php echo $form['username']->renderError(); ?>
+        	</div>
+    	</div>
+	<?php endif; ?>
 </form>

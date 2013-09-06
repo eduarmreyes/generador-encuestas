@@ -3,18 +3,20 @@
 
 default:
   http_metas:
-    content-type: text/html
+    viewport:					width=device-width, initial-scale=1.0
+    X-UA-Compatible:	IE=edge,chrome=1
 
   metas:
-    #title:        symfony project
+    title:						Generador Encuestas
     #description:  symfony project
     #keywords:     symfony, project
     #language:     en
     #robots:       index, follow
+    author:						carcmonge, eduarmreyes
 
-  stylesheets:    [main.css]
+  stylesheets:				[app/main.css, vendor/bootplus.min.css, vendor/bootplus-responsive.min.css, vendor/font-awesome.min.css]
 
-  javascripts:    []
+  javascripts:				[vendor/bootstrap.min.js, vendor/jquery-1.10.2.min.js]
 
-  has_layout:     true
-  layout:         layout
+  has_layout:					true
+  layout:							layout
