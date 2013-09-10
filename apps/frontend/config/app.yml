@@ -5,6 +5,6 @@
 
 all:
   sf_guard_plugin:
-    remember_key_expiration_age: 2592000
+    remember_key_expiration_age: 86400
     remember_cookie_name: generador_encuestas_frontend_RememberMe
     routes_register: false

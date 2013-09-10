@@ -14,11 +14,7 @@ class sfGuardFormSignin extends BasesfGuardFormSignin {
 	 * @see sfForm
 	 */
 	public function configure() {
-		$this->setValidators(array(
-			'username' => new sfValidatorString(),
-			'password' => new sfValidatorString(),
-			'remember' => new sfValidatorBoolean(array("required" => FALSE)),
-		));
+		
 	}
 
 }
