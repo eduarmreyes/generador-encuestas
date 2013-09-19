@@ -16,7 +16,7 @@
         	html,
         	body {
             	height: 100%;
-            	background-color: rgba(0,151,218,0.7);
+            	background-color: #e5e5e5;
             	/* The html and body elements cannot have any padding or margin. */
         	}
 
@@ -92,8 +92,8 @@
                 	<div class="container">
                     	<a class="brand" href="#"><?php echo image_tag('rochi-logo.jpg') ?></a>
                     	<div style="margin-top:1em;">
-                        	<span><?php echo date('d/m/Y'); ?></span>
-                    	</div>               	 
+							<span><?php echo strftime("%A %d de %B del %Y"); ?></span>
+						</div>               	 
                 	</div>
             	</div>
         	</div>

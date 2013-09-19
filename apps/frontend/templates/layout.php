@@ -92,8 +92,8 @@
                 	<div class="container">
                     	<a class="brand" href="#"><?php echo image_tag('rochi-logo.jpg') ?></a>
                     	<div style="margin-top:1em;">
-                        	<span><?php echo date('l\ d F, Y'); ?></span>
-                    	</div>               	 
+							<span><?php echo strftime("%A %d de %B del %Y"); ?></span>
+						</div>               	 
                 	</div>
             	</div>
         	</div>

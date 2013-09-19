@@ -14,9 +14,19 @@ default:
     #robots:					index, follow
     #author:					carcmonge, eduarmreyes
     
-  stylesheets:    [vendor/normalize.css, vendor/font-awesome.min.css, vendor/bootplus.min.css, vendor/bootplus-responsive.min.css, app/main.css]
+  stylesheets:    
+    - vendor/normalize.css
+    - vendor/font-awesome.min.css
+    - vendor/bootplus.min.css
+    - vendor/bootplus-responsive.min.css
+    - app/bootplus.rochi.css
+    - app/main.css
 
-  javascripts:    [vendor/jquery-1.10.2.min.js, vendor/bootstrap.min.js, vendor/jquery.pnotify.min.js, vendor/livevalidation.min.js, app/usefullFunctions.js, app/main.js]
+  javascripts:    
+    - vendor/jquery-1.10.2.min.js
+    - vendor/bootstrap.min.js
+    - vendor/livevalidation.min.js
+    - app/main.js
 
   has_layout:					true
   layout:							login_layout

@@ -14,9 +14,9 @@ default:
     #robots:       index, follow
     author:						carcmonge, eduarmreyes
 
-  stylesheets:				[app/main.css, vendor/bootplus.min.css, vendor/bootplus-responsive.min.css, vendor/font-awesome.min.css]
+  stylesheets:				[vendor/bootplus.min.css, vendor/bootplus-responsive.min.css, vendor/font-awesome.min.css, app/bootplus.rochi.css, app/main.css]
 
-  javascripts:				[vendor/bootstrap.min.js, vendor/jquery-1.10.2.min.js]
+  javascripts:				[vendor/jquery-1.10.2.min.js, vendor/bootstrap.min.js]
 
   has_layout:					true
   layout:							layout

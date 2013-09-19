@@ -6,15 +6,35 @@ default:
     content-type: text/html
 
   metas:
-    #title:        symfony project
+    title:        Generador Encuestas Backend
     #description:  symfony project
     #keywords:     symfony, project
     #language:     en
     #robots:       index, follow
 
-  stylesheets:    [main.css]
+  stylesheets:    
+    - vendor/normalize.css
+    - vendor/font-awesome.min.css
+    - vendor/bootplus.min.css
+    - vendor/bootplus-responsive.min.css
+    - vendor/jquery.pnotify.default.css
+    - vendor/jquery.pnotify.default.icons.css
+    - vendor/chosen.min.css
+    - vendor/jquery.dataTables.css
+    - vendor/DT_bootstrap.css
+    - app/bootplus.rochi.css
+    - app/main.css
 
-  javascripts:    []
+  javascripts:    
+    - vendor/jquery-1.10.2.min.js
+    - vendor/bootstrap.min.js
+    - vendor/jquery.pnotify.min.js
+    - vendor/livevalidation.min.js
+    - vendor/chosen.jquery.min.js
+    - vendor/jquery.dataTables.min.js
+    - vendor/DT_bootstrap.js
+    - app/usefullFunctions.js
+    - app/main.js
 
   has_layout:     true
   layout:         layout
