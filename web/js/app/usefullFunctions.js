@@ -59,6 +59,9 @@ function addValidatePresence(oValidation, oKeyValues) {
 function addValidateNumber(oValidation, oKeyValues) {
 	oValidation.add(Validate.Numericality, oKeyValues);
 }
+function addValidateEmail(oValidation, oKeyValues) {
+	oValidation.add(Validate.Email, oKeyValues);
+}
 function fnInitiateDatatable(cssSelector) {
 	var dataTable = $(cssSelector).dataTable({
     	"oLanguage": {
@@ -103,8 +106,8 @@ function fnGetNewRowByCustomAttr(oDataTable, customAttr) {
 	}
 	return aReturn;
 }
-function fnShowTooltip(placement) {
-	$(".showTooltip").tooltip({
+function fnShowTooltip(selector, placement) {
+	$(selector).tooltip({
     	placement: placement
 	});
 }
@@ -124,22 +127,22 @@ $("img.delete_record").bind('mouseleave', function() {
 function fnStatusCodes() {
 	return {
     	204: function() {
-        	fnAddErrorNotify("No information send back from server.");
+        	fnAddErrorNotify("El servidor no envió ninguna respuesta.");
     	},
     	400: function() {
-        	fnAddErrorNotify("Bad request from the client.");
+        	fnAddErrorNotify("Mal pedido desde el cliente.");
     	},
     	401: function() {
-        	fnAddInfoNotify("You're unathorized or the session has expired, please login again.");
+        	fnAddInfoNotify("No estás autorizado a hacer la acción pedida.");
     	},
     	403: function() {
-        	fnAddWarningNotify("The session has expired, please refer to the login");
+        	fnAddWarningNotify("La sesión ha terminado, por favor ve a la pantalla de inicio de sesión");
     	},
     	404: function() {
-        	fnAddErrorNotify("Page not found.");
+        	fnAddErrorNotify("Página no encontrada.");
     	},
     	500: function() {
-        	fnAddErrorNotify("Fatal errors has occurred, please advice the administrator.");
+        	fnAddErrorNotify("Un error fatal ha ocurrido, por favor reportalo.");
     	}
 	};
 }

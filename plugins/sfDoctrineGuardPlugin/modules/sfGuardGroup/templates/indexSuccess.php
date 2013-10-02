@@ -128,7 +128,7 @@ slot("group", "active");
             	error: function(oJsonData) {
                 	debugger;
                 	if (undefined !== oJsonData.responseText) {
-                    	fnAddErrorNotify("An unexpected error has occurred, please contact the administrator");
+                    	fnAddErrorNotify("Un error inesperado sucedió, contactar al administrador.");
                     	console.log(oJsonData.responseText);
                 	} else {
                     	fnAddErrorNotify(oJsonData.message_list);
@@ -150,7 +150,7 @@ slot("group", "active");
                     	}
                 	} else {
                     	for (var i = 0; i < oJsonData.message_list.length; i++) {
-                        	fnAddErrorNotify(oJsonData.message_list[0]);
+                        	fnAddErrorNotify(oJsonData.message_list[i]);
                     	}
                 	}
                 	fnCleanGroupForm();

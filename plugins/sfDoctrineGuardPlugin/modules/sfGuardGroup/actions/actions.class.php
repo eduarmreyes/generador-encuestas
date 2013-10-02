@@ -83,7 +83,7 @@ class sfGuardGroupActions extends autosfGuardGroupActions {
             	$aData["message_list"] = $oGroupForm->getErrorList();
         	}
     	} else {
-        	$aData["message_list"] = "You're trying to access this page incorrectly, please refer to the user backend administration";
+        	$aData["message_list"] = UsefullVariables::FormIsNotXmlHttpRequest;
     	}
     	$content = json_encode($aData);
     	$this->getResponse()->setContent($content);

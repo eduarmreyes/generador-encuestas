@@ -12,5 +12,7 @@
  */
 class sfGuardUserGroup extends PluginsfGuardUserGroup
 {
-
+	public function __toString() {
+		return $this->getGroup();
+	}
 }

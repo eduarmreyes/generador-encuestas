@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en">
 	<head>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset="utf-8">
 		<?php include_http_metas() ?>
 		<?php include_metas() ?>
 		<?php include_title() ?>
@@ -17,7 +17,7 @@
 			body {
 				height: 100%;
 				background-color: #e5e5e5
-				/* The html and body elements cannot have any padding or margin. */
+					/* The html and body elements cannot have any padding or margin. */
 			}
 
 			/* Wrapper for page content to push down footer */
@@ -93,10 +93,12 @@
 					<div class="container">
 						<a class="brand" href="#"><?php echo image_tag('rochi-logo.jpg') ?></a>
 						<div class="span3" style="margin-top:1em;">
-							<span><?php echo strftime("%A %d de %B del %Y"); ?></span>
+							<span><?php echo utf8_encode(strftime("%A %d de %B del %Y")); ?></span>
 						</div>
-						<div class="span3 offset5">
-							nop
+						<div class="pull-right" style="margin: 1em 2em 0 0;">
+							<span class="logout">
+								<a href="<?php echo url_for("sfGuardAuth/signout"); ?>" title="Cerrar sesión"><?php echo $sf_user; ?></a>
+							</span>
 						</div>
 					</div>
 				</div>
@@ -115,7 +117,9 @@
 			</div>
 		</div>
 		<script>
-			$(document).on("ready", fnLoginLayout());
+			$(document).on("ready", "body", function(){
+				fnShowTooltip(".logout > a", "left");
+			});
 		</script>
 	</body>
 </html>

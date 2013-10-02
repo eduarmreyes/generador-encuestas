@@ -1,6 +1,7 @@
 /********************************* LiveValidation *************************************/
 
 .LV_valid {
+	display: block;
 	color:#477B00;
 }
 
@@ -49,4 +50,10 @@ textarea.LV_invalid_field:active,
 }
 .brand + div > span {
 	color: #fff;
+}
+.logout > a {
+	color: #fff;
+}
+table > tbody > tr {
+	cursor: pointer;
 }

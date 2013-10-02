@@ -12,6 +12,8 @@ Doctrine_Manager::getInstance()->bindComponent('CenPregunta', 'doctrine');
  * @property integer $pre_id_tipo_pregunta_opcion
  * @property string $pre_pregunta_text
  * @property integer $pre_posicion
+ * @property integer $pre_salto
+ * @property integer $pre_enlace
  * @property string $pre_nota
  * @property string $pre_descripcion
  * @property timestamp $pre_fecha_creacion
@@ -19,15 +21,17 @@ Doctrine_Manager::getInstance()->bindComponent('CenPregunta', 'doctrine');
  * @property timestamp $pre_fecha_modificacion
  * @property integer $pre_modificado_por
  * @property integer $pre_activo
- * @property CenEncuestas $CenEncuestas
  * @property CenTipoPreguntaOpcion $CenTipoPreguntaOpcion
  * @property Doctrine_Collection $CenOpcion
+ * @property CenEncuestas $CenEncuestas
  * 
  * @method integer               getPreId()                       Returns the current record's "pre_id" value
  * @method integer               getPreIdEncuesta()               Returns the current record's "pre_id_encuesta" value
  * @method integer               getPreIdTipoPreguntaOpcion()     Returns the current record's "pre_id_tipo_pregunta_opcion" value
  * @method string                getPrePreguntaText()             Returns the current record's "pre_pregunta_text" value
  * @method integer               getPrePosicion()                 Returns the current record's "pre_posicion" value
+ * @method integer               getPreSalto()                    Returns the current record's "pre_salto" value
+ * @method integer               getPreEnlace()                   Returns the current record's "pre_enlace" value
  * @method string                getPreNota()                     Returns the current record's "pre_nota" value
  * @method string                getPreDescripcion()              Returns the current record's "pre_descripcion" value
  * @method timestamp             getPreFechaCreacion()            Returns the current record's "pre_fecha_creacion" value
@@ -35,14 +39,16 @@ Doctrine_Manager::getInstance()->bindComponent('CenPregunta', 'doctrine');
  * @method timestamp             getPreFechaModificacion()        Returns the current record's "pre_fecha_modificacion" value
  * @method integer               getPreModificadoPor()            Returns the current record's "pre_modificado_por" value
  * @method integer               getPreActivo()                   Returns the current record's "pre_activo" value
- * @method CenEncuestas          getCenEncuestas()                Returns the current record's "CenEncuestas" value
  * @method CenTipoPreguntaOpcion getCenTipoPreguntaOpcion()       Returns the current record's "CenTipoPreguntaOpcion" value
  * @method Doctrine_Collection   getCenOpcion()                   Returns the current record's "CenOpcion" collection
+ * @method CenEncuestas          getCenEncuestas()                Returns the current record's "CenEncuestas" value
  * @method CenPregunta           setPreId()                       Sets the current record's "pre_id" value
  * @method CenPregunta           setPreIdEncuesta()               Sets the current record's "pre_id_encuesta" value
  * @method CenPregunta           setPreIdTipoPreguntaOpcion()     Sets the current record's "pre_id_tipo_pregunta_opcion" value
  * @method CenPregunta           setPrePreguntaText()             Sets the current record's "pre_pregunta_text" value
  * @method CenPregunta           setPrePosicion()                 Sets the current record's "pre_posicion" value
+ * @method CenPregunta           setPreSalto()                    Sets the current record's "pre_salto" value
+ * @method CenPregunta           setPreEnlace()                   Sets the current record's "pre_enlace" value
  * @method CenPregunta           setPreNota()                     Sets the current record's "pre_nota" value
  * @method CenPregunta           setPreDescripcion()              Sets the current record's "pre_descripcion" value
  * @method CenPregunta           setPreFechaCreacion()            Sets the current record's "pre_fecha_creacion" value
@@ -50,9 +56,9 @@ Doctrine_Manager::getInstance()->bindComponent('CenPregunta', 'doctrine');
  * @method CenPregunta           setPreFechaModificacion()        Sets the current record's "pre_fecha_modificacion" value
  * @method CenPregunta           setPreModificadoPor()            Sets the current record's "pre_modificado_por" value
  * @method CenPregunta           setPreActivo()                   Sets the current record's "pre_activo" value
- * @method CenPregunta           setCenEncuestas()                Sets the current record's "CenEncuestas" value
  * @method CenPregunta           setCenTipoPreguntaOpcion()       Sets the current record's "CenTipoPreguntaOpcion" value
  * @method CenPregunta           setCenOpcion()                   Sets the current record's "CenOpcion" collection
+ * @method CenPregunta           setCenEncuestas()                Sets the current record's "CenEncuestas" value
  * 
  * @package    generador_encuestas
  * @subpackage model
@@ -100,6 +106,24 @@ abstract class BaseCenPregunta extends sfDoctrineRecord
              'length' => '',
              ));
         $this->hasColumn('pre_posicion', 'integer', 4, array(
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => true,
+             'autoincrement' => false,
+             'length' => 4,
+             ));
+        $this->hasColumn('pre_salto', 'integer', 4, array(
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => true,
+             'autoincrement' => false,
+             'length' => 4,
+             ));
+        $this->hasColumn('pre_enlace', 'integer', 4, array(
              'type' => 'integer',
              'fixed' => 0,
              'unsigned' => false,
@@ -177,10 +201,6 @@ abstract class BaseCenPregunta extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('CenEncuestas', array(
-             'local' => 'pre_id_encuesta',
-             'foreign' => 'enc_id'));
-
         $this->hasOne('CenTipoPreguntaOpcion', array(
              'local' => 'pre_id_tipo_pregunta_opcion',
              'foreign' => 'tpo_id'));
@@ -188,5 +208,9 @@ abstract class BaseCenPregunta extends sfDoctrineRecord
         $this->hasMany('CenOpcion', array(
              'local' => 'pre_id',
              'foreign' => 'opc_id_pregunta'));
+
+        $this->hasOne('CenEncuestas', array(
+             'local' => 'pre_id_encuesta',
+             'foreign' => 'enc_id'));
     }
 }

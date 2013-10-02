@@ -2,7 +2,7 @@
 slot("user", "active");
 ?>
 <div class="card">
-    <h3 class="card-heading simple">New User</h3>
+    <h3 class="card-heading simple">Usuario Nuevo</h3>
     <div class="card-body">
         <form id="newUser" class="form-horizontal" action="<?php echo url_for('sfGuardUser/doSave') ?>" method="post">
             <div class="row">
@@ -15,39 +15,51 @@ slot("user", "active");
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="sf_guard_user_first_name">Name: *</label>
+                        <label class="control-label" for="sf_guard_user_first_name">Nombre: *</label>
                         <div class="controls">
 							<?php echo $form["first_name"]; ?>
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="sf_guard_user_last_name">Last Name: *</label>
+                        <label class="control-label" for="sf_guard_user_last_name">Apellido: *</label>
                         <div class="controls">
 							<?php echo $form["last_name"]; ?>
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="sf_guard_user_username">Windows Login: *</label>
-                        <div class="controls" class="showTooltip" title="Your windows login">
+                        <label class="control-label" for="sf_guard_user_username">Usuario: *</label>
+                        <div class="controls" class="showTooltip" title="Usuario para ingresar a la herramienta.">
 							<?php echo $form["username"]; ?>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="sf_guard_user_password">Contraseña: *</label>
+                        <div class="controls" class="showTooltip" title="Contraseña que desea usar">
+							<?php echo $form["password"]; ?>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="sf_guard_user_password_again">Confirmar contraseña: *</label>
+                        <div class="controls" class="showTooltip" title="Confirmar contraseña.">
+							<?php echo $form["password_again"]; ?>
                         </div>
                     </div>
                 </div>
                 <div class="span5">
                     <div class="control-group">
-                        <label class="control-label" for="sf_guard_user_is_active">Active: *</label>
+                        <label class="control-label" for="sf_guard_user_is_active">Activo: *</label>
                         <div class="controls">
 							<?php echo $form["is_active"]; ?>
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="sf_guard_user_groups_list">Groups:</label>
+                        <label class="control-label" for="sf_guard_user_groups_list">Grupos:</label>
                         <div class="controls">
 							<?php echo $form["groups_list"]; ?>
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="sf_guard_user_permissions_list">Permissions:</label>
+                        <label class="control-label" for="sf_guard_user_permissions_list">Permisos:</label>
                         <div class="controls">
 							<?php echo $form["permissions_list"]; ?>
                         </div>
@@ -55,24 +67,24 @@ slot("user", "active");
                 </div>
             </div>
             <div class="form-actions">
+                <input type="submit" class="btn btn-info" value="Guardar" data-loading-text="Guardando Usuario..." >
                 <input type="reset" class="btn" value="Reset">
-                <input type="submit" class="btn btn-info" value="Save" data-loading-text="Saving New User..." >
             </div>
         </form>
     </div>
 </div>
 <div class="card">
-    <h3 class="card-heading simple">Users List</h3>
+    <h3 class="card-heading simple">Lista de Usuarios</h3>
     <div class="card-body">
         <table id="users_table" class="table table-striped table-bordered table-hover dataTable" data-get_record_method="<?php echo url_for('sfGuardUser/getUserByUserId'); ?>">
             <thead>
                 <tr>
                     <th>Email</th>
-                    <th>User</th>
-                    <th>Name</th>
-                    <th>Last Name</th>
-                    <th>Last Login</th>
-                    <th>Active</th>
+                    <th>Usuario</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Última sesión iniciada</th>
+                    <th>Activo</th>
                 </tr>
             </thead>
             <tbody>
@@ -82,9 +94,9 @@ slot("user", "active");
                         <td>" . $user["username"] . "</td>
                         <td>" . $user["first_name"] . "</td>
                         <td>" . $user["last_name"] . "</td>
-                        <td>" . date('l\ d F, Y', strtotime($user["last_login"])) . "</td>
+                        <td>" . strftime("%A %d de %B del %Y", strtotime(trim($user["last_login"]))) . "</td>
                         <td>";
-					echo ($user["is_active"] == 1) ? "<span class='badge badge-success'>Active</span>" : "<span class='badge'>Not Active</span>";
+					echo ($user["is_active"] == 1) ? "<span class='badge badge-success'>Activo</span>" : "<span class='badge'>No activo</span>";
 					echo "</td>";
 				}
 				?>
@@ -96,33 +108,50 @@ slot("user", "active");
 	var oTable;
 	$(document).on("ready", usersBackend());
 	function usersBackend() {
-		var oVVhur = new LiveValidation("sf_guard_user_vhur", {
-			validMessage: " "
-		});
-		addValidatePresence(oVVhur, {
-			failureMessage: "Provide user vhur"
-		});
-		addValidateNumber(oVVhur, {
-			onlyInteger: true
+		$("input[type=checkbox]").switchButton({
+			labels_placement: "right",
+			on_label: "sí",
+			off_label: "no"
 		});
 		var oVName = new LiveValidation("sf_guard_user_first_name", {
 			validMessage: " "
 		});
 		addValidatePresence(oVName, {
-			failureMessage: "Provide user name"
+			failureMessage: "Falta su nombre"
+		});
+		var oVEmail = new LiveValidation("sf_guard_user_email_address", {
+			validMessage: " "
+		});
+		addValidatePresence(oVEmail, {
+			failureMessage: "Email requerido"
+		});
+		addValidateEmail(oVEmail, {
+			failureMessage: "Email debe ser válido"
 		});
 		var oVLName = new LiveValidation("sf_guard_user_last_name", {
 			validMessage: " "
 		});
 		addValidatePresence(oVLName, {
-			failureMessage: "Provide the user last name"
+			failureMessage: "Su apellido falta"
 		});
 		var oVUsername = new LiveValidation("sf_guard_user_username", {
 			validMessage: " "
 		});
 		addValidatePresence(oVUsername, {
-			failureMessage: "Windows Login required"
+			failureMessage: "Usuario es requerido"
 		});
+//		var oVPassword = new LiveValidation("sf_guard_user_password", {
+//			validMessage: " "
+//		});
+//		addValidatePresence(oVPassword, {
+//			failureMessage: "Falta la contraseña"
+//		});
+//		var oVPasswordAgain = new LiveValidation("sf_guard_user_password_again", {
+//			validMessage: " "
+//		});
+//		addValidatePresence(oVPasswordAgain, {
+//			failureMessage: "Confirme su contraseña"
+//		});
 		oTable = fnInitiateDatatable(".table.table-striped.table-bordered.table-hover.dataTable");
 		$("#sf_guard_user_team_captain_id").chosen({
 			allow_single_deselect: true
@@ -156,6 +185,7 @@ slot("user", "active");
 					},
 					success: function(oJsonData) {
 						if (oJsonData.message_list.length === 0) {
+							fnCleanUserForm();
 							fnFillFormFromUserObject(oJsonData.record);
 						} else {
 							for (var c = 0; c < oJsonData.message_list.length; c++) {
@@ -179,42 +209,42 @@ slot("user", "active");
 				error: function(oJsonData) {
 					debugger;
 					if (undefined !== oJsonData.responseText) {
-						fnAddErrorNotify("An unexpected error has occurred, please contact the administrator");
+						fnAddErrorNotify("Un error inesperado sucedió, contactar al administrador");
 						console.log(oJsonData.responseText);
 					} else {
 						fnAddErrorNotify(oJsonData.message_list);
 					}
-					$(".btn.btn-info-purple").button("reset");
+					$(".btn.btn-info").button("reset");
 				},
 				success: function(oJsonData) {
 					debugger;
 					if (oJsonData.message_list.length === 0) {
-						fnAddSuccessNotify("User was saved successfully.");
+						fnAddSuccessNotify("Usuario guardado.");
 						if (oJsonData.is_active === "Yes") {
-							is_active = '<span class="badge badge-success">Active</span>';
+							is_active = '<span class="badge badge-success">Activo</span>';
 						} else {
-							is_active = '<span class="badge">Not Active</span>';
+							is_active = '<span class="badge">No Activo</span>';
 						}
 						if (oJsonData.is_new) {
-							$("#users_table").dataTable().fnAddData([oJsonData.vhur, oJsonData.username, oJsonData.first_name, oJsonData.last_name, oJsonData.last_login, is_active]);
+							$("#users_table").dataTable().fnAddData([oJsonData.email_address, oJsonData.username, oJsonData.first_name, oJsonData.last_name, oJsonData.last_login, is_active]);
 							var oRow = fnGetNewRowByCustomAttr(oTable, "data-user_id", oJsonData.id);
 							$(oRow).attr("data-user_id", oJsonData.id);
 						} else {
 							var oRow = fnGetRowByCustomAttr(oTable, oJsonData.id, "data-user_id");
-							$(oRow).children().eq(0).html(oJsonData.vhur);
+							$(oRow).children().eq(0).html(oJsonData.email_address);
 							$(oRow).children().eq(1).html(oJsonData.username);
 							$(oRow).children().eq(2).html(oJsonData.first_name);
 							$(oRow).children().eq(3).html(oJsonData.last_name);
 							$(oRow).children().eq(4).html(oJsonData.last_login);
 							$(oRow).children().eq(5).html(is_active);
 						}
+						fnCleanUserForm();
 					} else {
 						for (var i = 0; i < oJsonData.message_list.length; i++) {
-							fnAddErrorNotify(oJsonData.message_list[0]);
+							fnAddErrorNotify(oJsonData.message_list[i]);
 						}
 					}
-					fnCleanUserForm();
-					$(".btn.btn-info-purple").button("reset");
+					$(".btn.btn-info").button("reset");
 				},
 				statusCode: fnStatusCodes(),
 				type: "post",
@@ -231,7 +261,10 @@ slot("user", "active");
 			$(this).toggleClass("LV_invalid_field");
 		});
 		$("#sf_guard_user_is_active").prop("checked", true);
-		$("#newUser").find("input[type=text], input[type=hidden]").val("");
+		$("input[type=checkbox]").switchButton({
+			checked: true
+		});
+		$("#newUser").find("input[type=text], input[type=hidden], input[type=password]").val("");
 		$('#sf_guard_user_groups_list option').prop('selected', false);
 		$('#sf_guard_user_groups_list').trigger('chosen:updated');
 		$('#sf_guard_user_permissions_list option').prop('selected', false);
@@ -243,12 +276,15 @@ slot("user", "active");
 	function fnFillFormFromUserObject(jsonObject) {
 		debugger;
 		fnCleanUserForm();
-		$("#sf_guard_user_vhur").val(jsonObject.vhur);
 		$("#sf_guard_user_id").val(jsonObject.id);
 		$("#sf_guard_user_is_active").prop("checked", jsonObject.is_active === true);
+		$("#sf_guard_user_is_active").switchButton({
+			checked: jsonObject.is_active === true
+		});
 		$("#sf_guard_user_first_name").val(jsonObject.first_name);
 		$("#sf_guard_user_last_name").val(jsonObject.last_name);
 		$("#sf_guard_user_username").val(jsonObject.username);
+		$("#sf_guard_user_email_address").val(jsonObject.email_address);
 		if (typeof jsonObject.team_captain_id === "undefined" || jsonObject.team_captain_id === null) {
 			$("#sf_guard_user_team_captain_id").val("");
 			$("#sf_guard_user_team_captain_id").trigger("chosen:updated");
