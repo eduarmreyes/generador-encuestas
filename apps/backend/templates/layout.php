@@ -101,8 +101,43 @@
 							</span>
 						</div>
 					</div>
-				</div>
-			</div>
+                	<?php
+                	/* Get menu options from MenuManager.php */
+                	$menu = new MenuManager();
+                	$mainMenu = $menu->getMainMenu("backend", sfContext::getInstance()->getUser()->getCredentials());
+                	// $subMenu = $menu->getSecondaryMenu("frontend", include_slot("main_menu_option"));
+                	?>
+                	<div class="container">
+                    	<div class="row">
+                        	<div class="nav-collapse collapse" style="height: 0px;">
+                            	<ul class="nav">
+                                	<?php
+                                	$selected = "active";
+                                	$hasChild = "dropdown";
+                                	foreach ($mainMenu as $option) { ?>
+                                	<li class="<?php if (get_slot('main_menu_option') == $option['group']) { echo $selected; }?> <?php if ($option["hasChild"]) { echo $hasChild; } ?>">
+                                        	<?php if ($option["hasChild"]) { ?>
+                                        	<a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $option["link_title"] ?><b class="caret"></b></a>
+                                            	<?php if (count($option['options']) > 0) { ?>
+                                                	<ul class="dropdown-menu">
+                                                    	<?php foreach ($option['options'] as $opt) { ?>
+                                                    	<li class="<?php if (get_slot('catalog_admin_active') == $opt['group']) { echo $selected; } ?>">
+                                                        	<a href="<?php echo url_for($opt['module'] . '/' . $opt['action']); ?>"><?php echo $opt['link_title']; ?></a>
+                                                    	</li>
+                                                    	<?php } ?>
+                                                	</ul>
+                                            	<?php } ?>
+                                        	<?php } else { ?>
+                                            	<a href="<?php echo url_for($option['module'] . '/' . $option['action']); ?>"><?php echo $option['link_title']; ?></a>
+                                        	<?php } ?>
+                                    	</li>
+                                	<?php } ?>
+                            	</ul>
+                        	</div><!--/.nav-collapse -->
+                    	</div>
+                	</div>
+            	</div>
+        	</div>
 
 			<!-- Begin page content -->
 			<div class="container">
@@ -117,7 +152,7 @@
 			</div>
 		</div>
 		<script>
-			$(document).on("ready", "body", function(){
+			$(document).on("ready", function(){
 				fnShowTooltip(".logout > a", "left");
 			});
 		</script>

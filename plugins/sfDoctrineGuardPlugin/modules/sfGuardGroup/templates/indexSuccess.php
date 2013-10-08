@@ -8,7 +8,7 @@ slot("group", "active");
     	<form id="newGroup" class="form-horizontal" action="<?php echo url_for('sfGuardGroup/doSave') ?>" method="post">
         	<div class="row">
             	<?php echo $form->renderHiddenFields(); ?>
-            	<div class="span6">
+            	<div class="span5">
                 	<div class="control-group">
                     	<label class="control-label" for="sf_guard_group_name">Group Name: *</label>
                     	<div class="controls">
@@ -21,6 +21,8 @@ slot("group", "active");
                         	<?php echo $form["description"]; ?>
                     	</div>
                 	</div>
+				</div>
+				<div class="span6">
                 	<div class="control-group">
                     	<label class="control-label" for="sf_guard_group_users_list">Users List:</label>
                     	<div class="controls">
@@ -36,8 +38,8 @@ slot("group", "active");
             	</div>
         	</div>
         	<div class="form-actions">
+            	<input type="submit" class="btn btn-info" value="Save" data-loading-text="Saving New Group..." >
             	<input type="reset" class="btn" value="Reset">
-            	<input type="submit" class="btn btn-info-purple" value="Save" data-loading-text="Saving New Group..." >
         	</div>
     	</form>
 	</div>

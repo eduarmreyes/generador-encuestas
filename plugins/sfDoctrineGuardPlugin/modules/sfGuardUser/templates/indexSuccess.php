@@ -47,9 +47,15 @@ slot("user", "active");
                 </div>
                 <div class="span5">
                     <div class="control-group">
-                        <label class="control-label" for="sf_guard_user_is_active">Activo: *</label>
+                        <label class="control-label" for="sf_guard_user_is_active">Activo: </label>
                         <div class="controls">
 							<?php echo $form["is_active"]; ?>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="">Guider: </label>
+                        <div class="controls">
+							<?php echo $user_conf["usc_guider"]; ?>
                         </div>
                     </div>
                     <div class="control-group">
@@ -67,7 +73,7 @@ slot("user", "active");
                 </div>
             </div>
             <div class="form-actions">
-                <input type="submit" class="btn btn-info" value="Guardar" data-loading-text="Guardando Usuario..." >
+                <input type="submit" class="btn btn-info" data-toggle="loading" value="Guardar" data-loading-text="Guardando Usuario..." >
                 <input type="reset" class="btn" value="Reset">
             </div>
         </form>
@@ -140,18 +146,6 @@ slot("user", "active");
 		addValidatePresence(oVUsername, {
 			failureMessage: "Usuario es requerido"
 		});
-//		var oVPassword = new LiveValidation("sf_guard_user_password", {
-//			validMessage: " "
-//		});
-//		addValidatePresence(oVPassword, {
-//			failureMessage: "Falta la contraseña"
-//		});
-//		var oVPasswordAgain = new LiveValidation("sf_guard_user_password_again", {
-//			validMessage: " "
-//		});
-//		addValidatePresence(oVPasswordAgain, {
-//			failureMessage: "Confirme su contraseña"
-//		});
 		oTable = fnInitiateDatatable(".table.table-striped.table-bordered.table-hover.dataTable");
 		$("#sf_guard_user_team_captain_id").chosen({
 			allow_single_deselect: true
@@ -171,6 +165,7 @@ slot("user", "active");
 		});
 
 		$("#users_table tbody").on("click", function(event) {
+			Pace.restart();
 			$(oTable.fnSettings().aoData).each(function() {
 				$(this.nTr).removeClass("row_selected");
 			});
@@ -203,11 +198,11 @@ slot("user", "active");
 			}, 1500);
 		});
 		$("#newUser").on("submit", function() {
+			Pace.restart();
 			$.ajax({
 				data: $("#newUser").serialize(),
 				dataType: "json",
 				error: function(oJsonData) {
-					debugger;
 					if (undefined !== oJsonData.responseText) {
 						fnAddErrorNotify("Un error inesperado sucedió, contactar al administrador");
 						console.log(oJsonData.responseText);
@@ -217,7 +212,6 @@ slot("user", "active");
 					$(".btn.btn-info").button("reset");
 				},
 				success: function(oJsonData) {
-					debugger;
 					if (oJsonData.message_list.length === 0) {
 						fnAddSuccessNotify("Usuario guardado.");
 						if (oJsonData.is_active === "Yes") {
@@ -274,12 +268,15 @@ slot("user", "active");
 		$(".LV_validation_message.LV_invalid").hide();
 	}
 	function fnFillFormFromUserObject(jsonObject) {
-		debugger;
 		fnCleanUserForm();
 		$("#sf_guard_user_id").val(jsonObject.id);
 		$("#sf_guard_user_is_active").prop("checked", jsonObject.is_active === true);
+		$("#cen_usuario_configuracion_usc_guider").prop("checked", jsonObject.guider === true);
 		$("#sf_guard_user_is_active").switchButton({
 			checked: jsonObject.is_active === true
+		});
+		$("#cen_usuario_configuracion_usc_guider").switchButton({
+			checked: jsonObject.guider === true
 		});
 		$("#sf_guard_user_first_name").val(jsonObject.first_name);
 		$("#sf_guard_user_last_name").val(jsonObject.last_name);

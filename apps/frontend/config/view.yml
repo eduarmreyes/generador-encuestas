@@ -14,9 +14,31 @@ default:
     #robots:       index, follow
     author:						carcmonge, eduarmreyes
 
-  stylesheets:				[vendor/bootplus.min.css, vendor/bootplus-responsive.min.css, vendor/font-awesome.min.css, app/bootplus.rochi.css, app/main.css]
+  stylesheets:    
+    - vendor/normalize.css
+    - vendor/font-awesome.min.css
+    - vendor/bootplus.min.css
+    - vendor/bootplus-responsive.min.css
+    - vendor/jquery.pnotify.default.css
+    - vendor/jquery.pnotify.default.icons.css
+    - vendor/chosen.min.css
+    - vendor/jquery.dataTables.css
+    - vendor/DT_bootstrap.css
+    - vendor/pace.minimal.css
+    - app/bootplus.rochi.css
+    - app/main.css
 
-  javascripts:				[vendor/jquery-1.10.2.min.js, vendor/bootstrap.min.js]
+  javascripts:    
+    - vendor/jquery-1.10.2.min.js
+    - vendor/bootstrap.min.js
+    - vendor/jquery.pnotify.min.js
+    - vendor/livevalidation.min.js
+    - vendor/chosen.jquery.min.js
+    - vendor/jquery.dataTables.min.js
+    - vendor/DT_bootstrap.js
+    - vendor/pace.min.js
+    - app/usefullFunctions.js
+    - app/main.js
 
   has_layout:					true
   layout:							layout

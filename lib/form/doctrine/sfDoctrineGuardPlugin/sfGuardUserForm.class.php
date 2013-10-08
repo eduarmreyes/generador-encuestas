@@ -23,6 +23,7 @@ class sfGuardUserForm extends PluginsfGuardUserForm {
 		$this->validatorSchema['password_again'] = clone $this->validatorSchema['password'];
 		$this->widgetSchema['groups_list'] = new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'sfGuardGroup'), array("data-placeholder" => "Seleccione grupos"));
 		$this->widgetSchema['permissions_list'] = new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'sfGuardPermission'), array("data-placeholder" => "Seleccione permisos"));
+		$this->validatorSchema["id"] = new sfValidatorDoctrineChoice(array("model" => "sfGuardUser", "required" => false), array("invalid" => "ID aparentemente inválido"));
 
 		$this->widgetSchema->moveField('password_again', 'after', 'password');
 

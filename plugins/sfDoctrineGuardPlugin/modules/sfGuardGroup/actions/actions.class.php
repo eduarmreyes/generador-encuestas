@@ -97,7 +97,7 @@ class sfGuardGroupActions extends autosfGuardGroupActions {
         	$aData["message_list"] = array();
         	$aSfGuardGroup = Doctrine_Core::getTable("SfGuardGroup")->find($sGroupId, Doctrine_Core::HYDRATE_ARRAY);
         	if (count($aSfGuardGroup) == 0) {
-            	array_push($aData["message_list"], "No record with the given ID was found");
+            	array_push($aData["message_list"], "No hay records del grupo seleccionado");
         	} else {
             	$aData["record"] = $aSfGuardGroup;
             	// Getting all the users that have joined the group

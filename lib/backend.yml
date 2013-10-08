@@ -1,0 +1,49 @@
+## BACKEND MAIN MENU
+#Format:
+#Name_of_menu
+# link_path: Add the path to be added in the href property of the html link tag
+# link_title: Title that you want to show in the html link tag
+# action: action to be loaded
+# module: Name of the module the action belongs to
+# hidden: Indicates if an option should be showed or not
+# has_submenu: Indicates if a menu has submenu or not
+# submenu: array of option under this menu
+# Added Eduardo Mejía
+  # hasChild: in order to work with bootplus style, has child will let the
+  # development know that this option menu has more option inside of it
+
+# Users
+tabUser:
+  group: user
+  label: user
+  module: sfGuardUser
+  action: index
+  link_title: User
+  hidden: no
+  level: 1
+  hasChild: false
+  credential: []
+
+#Administration Area
+tabAdministration:
+  group: administration
+  label: administrationBackend
+  module: #
+  action: 
+  link_title: Administration
+  hidden: no
+  level: 1
+  hasChild: true
+#  i18n_label: __("")
+  credential: []
+  options:
+    optAdministrationGroups:
+      group: admin_groups
+      module: sfGuardGroup
+      action: index
+      link_title: Groups
+    optAdministrationPermission:
+      group: admin_permission
+      module: sfGuardPermission
+      action: index
+      link_title: Permission

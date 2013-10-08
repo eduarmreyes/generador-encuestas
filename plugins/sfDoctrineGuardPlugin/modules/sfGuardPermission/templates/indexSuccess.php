@@ -8,7 +8,7 @@ slot("permission", "active");
     	<form id="newPermission" class="form-horizontal" action="<?php echo url_for('sfGuardPermission/doSave') ?>" method="post">
         	<div class="row">
             	<?php echo $form->renderHiddenFields(); ?>
-            	<div class="span6">
+            	<div class="span5">
                 	<div class="control-group">
                     	<label class="control-label" for="sf_guard_permission_name">Permission Name: *</label>
                     	<div class="controls">
@@ -21,7 +21,9 @@ slot("permission", "active");
                         	<?php echo $form["description"]; ?>
                     	</div>
                 	</div>
-                	<div class="control-group">
+				</div>
+				<div class="span6">
+					<div class="control-group">
                     	<label class="control-label" for="sf_guard_permission_users_list">Users List:</label>
                     	<div class="controls">
                         	<?php echo $form["users_list"]; ?>
@@ -36,8 +38,8 @@ slot("permission", "active");
             	</div>
         	</div>
         	<div class="form-actions">
-            	<input type="reset" class="btn" value="Reset">
             	<input type="submit" class="btn btn-info-purple" value="Save" data-loading-text="Saving New Permission..." >
+            	<input type="reset" class="btn" value="Reset">
         	</div>
     	</form>
 	</div>

@@ -17,6 +17,7 @@ class sfGuardUserActions extends autoSfGuardUserActions {
 		$this->getResponse()->setTitle("Users Administration");
 		$this->form = new sfGuardUserForm();
 		$this->users = Doctrine_Core::getTable("sfGuardUser")->findAll();
+		$this->user_conf = new CenUsuarioConfiguracionForm();
 	}
 
 	public function executeDoSave(sfWebRequest $request) {
@@ -28,11 +29,13 @@ class sfGuardUserActions extends autoSfGuardUserActions {
 		$oUserForm->bind($aFormField);
 		if ($request->isXmlHttpRequest()) {
 			if ($oUserForm->isValid()) {
+				array_push($aFormField, $request->getParameter("cen_usuario_configuracion"));
 				$oDoctrineConnection = Doctrine_Manager::getInstance()->getCurrentConnection();
 				$oDoctrineConnection->beginTransaction();
 				try {
 					$bNew = true;
 					$bActive = isset($aFormField["is_active"]) && $aFormField["is_active"] == "on" ? "1" : "0";
+					$bGuider = isset($aFormField[0]["usc_guider"]) && $aFormField[0]["usc_guider"] == "on" ? "1" : "0";
 					if (isset($aFormField["id"]) && $aFormField["id"] != "") {
 						$bNew = false;
 						$oSfGuardUser = Doctrine_Core::getTable("SfGuardUser")->find($aFormField["id"]);
@@ -78,6 +81,10 @@ class sfGuardUserActions extends autoSfGuardUserActions {
 						}
 						$oUserPermissionsC->save();
 					}
+					Doctrine_Core::getTable("CenUsuarioConfiguracion")->setUserConf($oSfGuardUser->getIncremented(), $oSfGuardUser->getIncremented(), array(
+						"usc_guider" => $bGuider,
+						"usc_activo" => true,
+					));
 					$oDoctrineConnection->commit();
 					$aData["id"] = $oSfGuardUser->get("id");
 					$aData["first_name"] = $oSfGuardUser->getFirstName();
@@ -89,6 +96,12 @@ class sfGuardUserActions extends autoSfGuardUserActions {
 					$aData["groups_list"] = Doctrine_Core::getTable("sfGuardGroup")->getActiveSfGuardGroupByUserId($oSfGuardUser->get("id"), Doctrine_Core::HYDRATE_ARRAY);
 					$aData["permissions_list"] = Doctrine_Core::getTable("sfGuardPermission")->getActiveSfGuardPermissionByUserId($oSfGuardUser->get("id"), Doctrine_Core::HYDRATE_ARRAY);
 					$aData["is_new"] = $bNew;
+					$aCenUserConfiguration = Doctrine_Core::getTable("CenUsuarioConfiguracion")->findOneBy("usc_user_id", $oSfGuardUser->getIncremented(), Doctrine_Core::HYDRATE_ARRAY);
+					if (empty($aCenUserConfiguration)) {
+						$aData["guider"] = "No";
+					} else {
+						$aData["guider"] = 1 == $aCenUserConfiguration["usc_guider"] ? "Yes" : "No";
+					}
 				} catch (Exception $exc) {
 					$oDoctrineConnection->rollback();
 					array_push($aData["message_list"], $exc->getMessage() . "::" . $exc->getCode());
@@ -112,7 +125,7 @@ class sfGuardUserActions extends autoSfGuardUserActions {
 			$sUserId = $request->getParameter("user_id");
 			$aSfGuardUser = Doctrine_Core::getTable("SfGuardUser")->find($sUserId, Doctrine_Core::HYDRATE_ARRAY);
 			if (count($aSfGuardUser) == 0) {
-				array_push($aData["message_list"], "No record with the given ID was found");
+				array_push($aData["message_list"], "No hay records del usuario seleccionado");
 			} else {
 				$aData["record"] = $aSfGuardUser;
 				// Getting all groups that the user belongs to
@@ -130,6 +143,13 @@ class sfGuardUserActions extends autoSfGuardUserActions {
 					if ($oSfGuardUserPermission) {
 						$aData["record"]["permissions_list"][] = $permission["id"];
 					}
+				}
+				// Getting User Configuration
+				$aCenUserConfiguration = Doctrine_Core::getTable("CenUsuarioConfiguracion")->findOneBy("usc_user_id", $sUserId, Doctrine_Core::HYDRATE_ARRAY);
+				if (empty($aCenUserConfiguration)) {
+					$aData["record"]["guider"] = false;
+				} else {
+					$aData["record"]["guider"] = 1 == $aCenUserConfiguration["usc_guider"];
 				}
 			}
 		} else {

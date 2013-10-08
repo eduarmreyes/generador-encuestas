@@ -57,3 +57,74 @@ textarea.LV_invalid_field:active,
 table > tbody > tr {
 	cursor: pointer;
 }
+/* ==========================================================================
+   Media Queries
+   ========================================================================== */
+@media (min-width: 1200px) {
+
+	/* ===============
+		Maximal Width CSS3 Effects
+	   =============== */
+
+}
+
+@media (min-width: 980px) and (max-width: 1199px) {
+
+	/* ====================
+		WIDE: CSS3 Effects
+	   ==================== */
+
+
+	/* ============
+		WIDE: Menu
+	   ============ */
+
+
+	/* ============
+		WIDE: Main
+	   ============ */
+
+}
+
+@media (max-width: 979px) {
+	#wrap > .container {
+		padding-top: 0 !important;
+	}
+	.navbar-fixed-top {
+		margin-bottom: 0;
+	}
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+
+	/* ====================
+		INTERMEDIATE: CSS3 Effects
+	   ==================== */
+	.form-horizontal .control-label {
+		width: 80px;
+	}
+	.form-horizontal .controls {
+		margin-left: 95px;
+	}
+
+}
+
+@media (max-width: 767px) {
+	
+}
+
+@media (max-width: 480px) {
+	/* ====================
+		MINIMAL: CSS3 Effects
+	   ==================== */
+	.form-horizontal .control-label {
+		width: 100%;
+	}
+	.form-horizontal .controls {
+		margin-left: 0;
+	}
+	/* ========================
+		MINIMAL: IE Fixes
+	   ======================== */
+}
+

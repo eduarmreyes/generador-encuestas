@@ -63,12 +63,7 @@ function addValidateEmail(oValidation, oKeyValues) {
 	oValidation.add(Validate.Email, oKeyValues);
 }
 function fnInitiateDatatable(cssSelector) {
-	var dataTable = $(cssSelector).dataTable({
-    	"oLanguage": {
-        	"sLengthMenu": "_MENU_ records per page",
-        	"sInfo": "<span class='label'>Showings _START_ to _END_ of _TOTAL_</span>"
-    	}
-	});
+	var dataTable = $(cssSelector).dataTable();
 	return dataTable;
 }
 function fnInitiateDatatableReport(cssSelector, swfPath) {
@@ -78,10 +73,6 @@ function fnInitiateDatatableReport(cssSelector, swfPath) {
     	"oTableTools": {
         	"sSwfPath": swfPath
     	},
-    	"oLanguage": {
-        	"sLengthMenu": "_MENU_ records per page",
-        	"sInfo": "<span class='label'>Showings _START_ to _END_ of _TOTAL_</span>"
-    	}
 	});
 	return dataTable;
 }

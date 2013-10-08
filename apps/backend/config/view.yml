@@ -22,6 +22,7 @@ default:
     - vendor/chosen.min.css
     - vendor/jquery.dataTables.css
     - vendor/DT_bootstrap.css
+    - vendor/pace.minimal.css
     - app/bootplus.rochi.css
     - app/main.css
 
@@ -33,6 +34,7 @@ default:
     - vendor/chosen.jquery.min.js
     - vendor/jquery.dataTables.min.js
     - vendor/DT_bootstrap.js
+    - vendor/pace.min.js
     - app/usefullFunctions.js
     - app/main.js
 

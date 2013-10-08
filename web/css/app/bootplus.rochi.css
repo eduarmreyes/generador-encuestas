@@ -20,3 +20,12 @@
 .navbar-inner {
 	background-color: #0097DA;
 }
+.tooltip {
+	border: 0;
+}
+.tooltip.left {
+	margin-left: -1em;
+}
+.alert-success h4{
+	color: #fff;
+}
