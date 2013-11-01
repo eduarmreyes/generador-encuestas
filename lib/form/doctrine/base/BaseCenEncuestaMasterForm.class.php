@@ -16,20 +16,20 @@ abstract class BaseCenEncuestaMasterForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'encm_id'                 => new sfWidgetFormInputHidden(),
-      'encm_encuesta_id'        => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('CenEncuesta'), 'add_empty' => false)),
+      'encm_encuesta_id'        => new sfWidgetFormInputText(),
       'encm_creado_por'         => new sfWidgetFormInputText(),
       'encm_fecha_creacion'     => new sfWidgetFormDateTime(),
-      'encm_modificado_por'     => new sfWidgetFormInputText(),
+      'encm_modificado_por'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('SfGuardUser'), 'add_empty' => false)),
       'encm_fecha_modificacion' => new sfWidgetFormDateTime(),
       'encm_activo'             => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
       'encm_id'                 => new sfValidatorChoice(array('choices' => array($this->getObject()->get('encm_id')), 'empty_value' => $this->getObject()->get('encm_id'), 'required' => false)),
-      'encm_encuesta_id'        => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('CenEncuesta'))),
+      'encm_encuesta_id'        => new sfValidatorString(array('max_length' => 50)),
       'encm_creado_por'         => new sfValidatorInteger(),
       'encm_fecha_creacion'     => new sfValidatorDateTime(),
-      'encm_modificado_por'     => new sfValidatorInteger(),
+      'encm_modificado_por'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('SfGuardUser'))),
       'encm_fecha_modificacion' => new sfValidatorDateTime(),
       'encm_activo'             => new sfValidatorInteger(),
     ));

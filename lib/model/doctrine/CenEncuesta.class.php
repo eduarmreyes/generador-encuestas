@@ -12,5 +12,7 @@
  */
 class CenEncuesta extends BaseCenEncuesta
 {
-
+	public function __toString() {
+		echo $this->getEncBem();
+	}
 }

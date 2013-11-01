@@ -16,7 +16,6 @@ Doctrine_Manager::getInstance()->bindComponent('CenEncuestaCategoria', 'doctrine
  * @property timestamp $enc_fecha_modificacion
  * @property integer $enc_activo
  * @property CenCategoria $CenCategoria
- * @property CenEncuesta $CenEncuesta
  * 
  * @method integer              getEncId()                  Returns the current record's "enc_id" value
  * @method string               getEncEncuestaId()          Returns the current record's "enc_encuesta_id" value
@@ -27,7 +26,6 @@ Doctrine_Manager::getInstance()->bindComponent('CenEncuestaCategoria', 'doctrine
  * @method timestamp            getEncFechaModificacion()   Returns the current record's "enc_fecha_modificacion" value
  * @method integer              getEncActivo()              Returns the current record's "enc_activo" value
  * @method CenCategoria         getCenCategoria()           Returns the current record's "CenCategoria" value
- * @method CenEncuesta          getCenEncuesta()            Returns the current record's "CenEncuesta" value
  * @method CenEncuestaCategoria setEncId()                  Sets the current record's "enc_id" value
  * @method CenEncuestaCategoria setEncEncuestaId()          Sets the current record's "enc_encuesta_id" value
  * @method CenEncuestaCategoria setEncCategoriaId()         Sets the current record's "enc_categoria_id" value
@@ -37,7 +35,6 @@ Doctrine_Manager::getInstance()->bindComponent('CenEncuestaCategoria', 'doctrine
  * @method CenEncuestaCategoria setEncFechaModificacion()   Sets the current record's "enc_fecha_modificacion" value
  * @method CenEncuestaCategoria setEncActivo()              Sets the current record's "enc_activo" value
  * @method CenEncuestaCategoria setCenCategoria()           Sets the current record's "CenCategoria" value
- * @method CenEncuestaCategoria setCenEncuesta()            Sets the current record's "CenEncuesta" value
  * 
  * @package    generador_encuestas
  * @subpackage model
@@ -128,9 +125,5 @@ abstract class BaseCenEncuestaCategoria extends sfDoctrineRecord
         $this->hasOne('CenCategoria', array(
              'local' => 'enc_categoria_id',
              'foreign' => 'cat_id'));
-
-        $this->hasOne('CenEncuesta', array(
-             'local' => 'enc_encuesta_id',
-             'foreign' => 'enc_id'));
     }
 }

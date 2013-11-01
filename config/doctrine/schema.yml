@@ -77,7 +77,7 @@ CenEncuesta:
   tableName: cen_encuesta
   columns:
     enc_id:
-      type: string(50)
+      type: integer(4)
       fixed: false
       unsigned: false
       primary: true
@@ -89,8 +89,29 @@ CenEncuesta:
       primary: false
       notnull: true
       autoincrement: false
-    enc_descripcion:
+    enc_instruccion:
       type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    enc_bem:
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    enc_pais:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    enc_clave:
+      type: string(50)
       fixed: false
       unsigned: false
       primary: false
@@ -137,19 +158,15 @@ CenEncuesta:
       local: enc_creado_por
       foreign: id
       type: one
-    SfGuardUser_2:
+    CenPais:
+      local: enc_pais
+      foreign: pai_id
+      type: one
+    SfGuardUser_3:
       class: SfGuardUser
       local: enc_modificado_por
       foreign: id
       type: one
-    CenEncuestaCategoria:
-      local: enc_id
-      foreign: enc_encuesta_id
-      type: many
-    CenEncuestaMaster:
-      local: enc_id
-      foreign: encm_encuesta_id
-      type: many
 CenEncuestaCategoria:
   connection: doctrine
   tableName: cen_encuesta_categoria
@@ -218,11 +235,7 @@ CenEncuestaCategoria:
       local: enc_creado_por
       foreign: id
       type: one
-    CenEncuesta:
-      local: enc_encuesta_id
-      foreign: enc_id
-      type: one
-    SfGuardUser_4:
+    SfGuardUser_3:
       class: SfGuardUser
       local: enc_modificado_por
       foreign: id
@@ -284,11 +297,7 @@ CenEncuestaMaster:
       local: encm_creado_por
       foreign: id
       type: one
-    CenEncuesta:
-      local: encm_encuesta_id
-      foreign: enc_id
-      type: one
-    SfGuardUser_3:
+    SfGuardUser_2:
       class: SfGuardUser
       local: encm_modificado_por
       foreign: id
@@ -359,6 +368,73 @@ CenOpcion:
       local: opc_id_pregunta
       foreign: pre_id
       type: one
+CenPais:
+  connection: doctrine
+  tableName: cen_pais
+  columns:
+    pai_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    pai_nombre:
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    pai_fecha_creacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    pai_creado_por:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    pai_fecha_modificacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    pai_modificado_por:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    pai_activo:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '1'
+      notnull: true
+      autoincrement: false
+  relations:
+    SfGuardUser:
+      local: pai_creado_por
+      foreign: id
+      type: one
+    SfGuardUser_2:
+      class: SfGuardUser
+      local: pai_modificado_por
+      foreign: id
+      type: one
+    CenEncuesta:
+      local: pai_id
+      foreign: enc_pais
+      type: many
 CenPregunta:
   connection: doctrine
   tableName: cen_pregunta
@@ -370,7 +446,7 @@ CenPregunta:
       primary: true
       autoincrement: true
     pre_id_encuesta:
-      type: integer(4)
+      type: string(50)
       fixed: false
       unsigned: false
       primary: false
@@ -397,14 +473,7 @@ CenPregunta:
       primary: false
       notnull: true
       autoincrement: false
-    pre_salto:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false
-    pre_enlace:
+    pre_padre:
       type: integer(4)
       fixed: false
       unsigned: false
@@ -479,6 +548,59 @@ CenPregunta:
       local: pre_id
       foreign: opc_id_pregunta
       type: many
+CenTipoEncuesta:
+  connection: doctrine
+  tableName: cen_tipo_encuesta
+  columns:
+    tpe_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    tpe_nombre:
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    tpe_fecha_creacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    tpe_creado_por:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    tpe_fecha_modificacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    tpe_modificado_por:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    tpe_activo:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '1'
+      notnull: true
+      autoincrement: false
 CenTipoPreguntaOpcion:
   connection: doctrine
   tableName: cen_tipo_pregunta_opcion
@@ -562,7 +684,7 @@ CenUsuarioConfiguracion:
       fixed: false
       unsigned: false
       primary: true
-      autoincrement: false
+      autoincrement: true
     usc_user_id:
       type: integer(8)
       fixed: false

@@ -1,3 +1,73 @@
+/* Sticky footer styles
+			-------------------------------------------------- */
+
+html,
+body {
+	height: 100%;
+	background-color: #e5e5e5
+		/* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	/* Negative indent footer by it's height */
+	margin: 0 auto -60px;
+}
+
+/* Set the fixed height of the footer here */
+#push,
+#footer {
+	height: 60px;
+}
+#footer {
+	background-color: #f5f5f5;
+}
+/* Custom page CSS
+-------------------------------------------------- */
+#wrap > .container {
+	padding-top: 60px;
+}
+.brand + div > span {
+	color: #fff;
+}
+.brand > img {
+	width: 141px;
+}
+.container .credit {
+	margin: 20px 0;
+}
+.datepicker {
+	cursor: pointer;
+}
+.form-signin {
+	border: 1px solid #D8D8D8;
+	border-bottom-width: 2px;
+	border-top-width: 0;
+	background-color: #FFF;
+	max-width: 400px;
+	min-width: 330px;
+	padding: 19px 29px 29px;
+	margin: 40px auto 20px;
+	background-color: #fff;
+	border: 1px solid #F5F5F5;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+.form-signin .form-signin-heading {
+	font-size: 24px;
+	font-weight: 300;
+}
+.input-prepend > .add-on > [class^='icon'] {
+	display: inline-block;
+	margin-top: 5px;
+}
+.logout > a {
+	color: #fff;
+}
 /********************************* LiveValidation *************************************/
 
 .LV_valid {
@@ -41,25 +111,29 @@ textarea.LV_invalid_field:active,
 .tab-content {
 	padding: 0 2em;
 }
-.input-prepend > .add-on > [class^='icon'] {
-	display: inline-block;
-	margin-top: 5px;
-}
-.datepicker {
-	cursor: pointer;
-}
-.brand + div > span {
-	color: #fff;
-}
-.logout > a {
-	color: #fff;
-}
 table > tbody > tr {
 	cursor: pointer;
 }
+
+/* ==========================================================================
+   Scrollbar styling
+   ========================================================================== */
+::-webkit-scrollbar {
+      width: 10px;
+} /* this targets the default scrollbar (compulsory) */
+::-webkit-scrollbar-thumb {
+	background-color: #757575;
+} /* this will style the thumb, ignoring the track */
+::-webkit-scrollbar-button {
+	background-color: rgba(144,144,144,0.1);
+} /* optionally, you can style the top and the bottom buttons (left and right for horizontal bars) */
+::-webkit-scrollbar-corner {
+	background-color: rgba(244,244,244,1);
+} /* if both the vertical and the horizontal bars appear, then perhaps the right bottom corner also needs to be styled */
 /* ==========================================================================
    Media Queries
    ========================================================================== */
+/* Lastly, apply responsive CSS fixes as necessary */
 @media (min-width: 1200px) {
 
 	/* ===============
@@ -110,7 +184,12 @@ table > tbody > tr {
 }
 
 @media (max-width: 767px) {
-	
+	#footer {
+		margin-left: -20px;
+		margin-right: -20px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
 }
 
 @media (max-width: 480px) {
@@ -127,4 +206,3 @@ table > tbody > tr {
 		MINIMAL: IE Fixes
 	   ======================== */
 }
-

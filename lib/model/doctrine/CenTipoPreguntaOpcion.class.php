@@ -12,5 +12,7 @@
  */
 class CenTipoPreguntaOpcion extends BaseCenTipoPreguntaOpcion
 {
-
+	public function __toString() {
+		echo $this->getTpoTipoEtiqueta();
+	}
 }

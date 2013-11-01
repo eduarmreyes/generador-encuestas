@@ -17,7 +17,10 @@ abstract class BaseCenEncuestaForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'enc_id'                 => new sfWidgetFormInputHidden(),
       'enc_nombre'             => new sfWidgetFormInputText(),
-      'enc_descripcion'        => new sfWidgetFormTextarea(),
+      'enc_instruccion'        => new sfWidgetFormTextarea(),
+      'enc_bem'                => new sfWidgetFormInputText(),
+      'enc_pais'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('CenPais'), 'add_empty' => false)),
+      'enc_clave'              => new sfWidgetFormInputText(),
       'enc_fecha_creacion'     => new sfWidgetFormDateTime(),
       'enc_creado_por'         => new sfWidgetFormInputText(),
       'enc_fecha_modificacion' => new sfWidgetFormDateTime(),
@@ -28,7 +31,10 @@ abstract class BaseCenEncuestaForm extends BaseFormDoctrine
     $this->setValidators(array(
       'enc_id'                 => new sfValidatorChoice(array('choices' => array($this->getObject()->get('enc_id')), 'empty_value' => $this->getObject()->get('enc_id'), 'required' => false)),
       'enc_nombre'             => new sfValidatorString(array('max_length' => 50)),
-      'enc_descripcion'        => new sfValidatorString(array('required' => false)),
+      'enc_instruccion'        => new sfValidatorString(array('required' => false)),
+      'enc_bem'                => new sfValidatorString(array('max_length' => 50)),
+      'enc_pais'               => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('CenPais'))),
+      'enc_clave'              => new sfValidatorString(array('max_length' => 50, 'required' => false)),
       'enc_fecha_creacion'     => new sfValidatorDateTime(),
       'enc_creado_por'         => new sfValidatorInteger(),
       'enc_fecha_modificacion' => new sfValidatorDateTime(),

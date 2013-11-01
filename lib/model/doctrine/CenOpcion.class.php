@@ -12,5 +12,7 @@
  */
 class CenOpcion extends BaseCenOpcion
 {
-
+	public function __toString() {
+		echo $this->getOpcOpcion();
+	}
 }

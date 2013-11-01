@@ -29,3 +29,9 @@
 .alert-success h4{
 	color: #fff;
 }
+.link_unstyled {
+	color: black;
+}
+.link_unstyled:hover {
+	text-decoration: none;
+}

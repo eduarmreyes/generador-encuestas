@@ -12,8 +12,7 @@ Doctrine_Manager::getInstance()->bindComponent('CenPregunta', 'doctrine');
  * @property integer $pre_id_tipo_pregunta_opcion
  * @property string $pre_pregunta_text
  * @property integer $pre_posicion
- * @property integer $pre_salto
- * @property integer $pre_enlace
+ * @property integer $pre_padre
  * @property string $pre_nota
  * @property string $pre_descripcion
  * @property timestamp $pre_fecha_creacion
@@ -30,8 +29,7 @@ Doctrine_Manager::getInstance()->bindComponent('CenPregunta', 'doctrine');
  * @method integer               getPreIdTipoPreguntaOpcion()     Returns the current record's "pre_id_tipo_pregunta_opcion" value
  * @method string                getPrePreguntaText()             Returns the current record's "pre_pregunta_text" value
  * @method integer               getPrePosicion()                 Returns the current record's "pre_posicion" value
- * @method integer               getPreSalto()                    Returns the current record's "pre_salto" value
- * @method integer               getPreEnlace()                   Returns the current record's "pre_enlace" value
+ * @method integer               getPrePadre()                    Returns the current record's "pre_padre" value
  * @method string                getPreNota()                     Returns the current record's "pre_nota" value
  * @method string                getPreDescripcion()              Returns the current record's "pre_descripcion" value
  * @method timestamp             getPreFechaCreacion()            Returns the current record's "pre_fecha_creacion" value
@@ -47,8 +45,7 @@ Doctrine_Manager::getInstance()->bindComponent('CenPregunta', 'doctrine');
  * @method CenPregunta           setPreIdTipoPreguntaOpcion()     Sets the current record's "pre_id_tipo_pregunta_opcion" value
  * @method CenPregunta           setPrePreguntaText()             Sets the current record's "pre_pregunta_text" value
  * @method CenPregunta           setPrePosicion()                 Sets the current record's "pre_posicion" value
- * @method CenPregunta           setPreSalto()                    Sets the current record's "pre_salto" value
- * @method CenPregunta           setPreEnlace()                   Sets the current record's "pre_enlace" value
+ * @method CenPregunta           setPrePadre()                    Sets the current record's "pre_padre" value
  * @method CenPregunta           setPreNota()                     Sets the current record's "pre_nota" value
  * @method CenPregunta           setPreDescripcion()              Sets the current record's "pre_descripcion" value
  * @method CenPregunta           setPreFechaCreacion()            Sets the current record's "pre_fecha_creacion" value
@@ -114,16 +111,7 @@ abstract class BaseCenPregunta extends sfDoctrineRecord
              'autoincrement' => false,
              'length' => 4,
              ));
-        $this->hasColumn('pre_salto', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('pre_enlace', 'integer', 4, array(
+        $this->hasColumn('pre_padre', 'integer', 4, array(
              'type' => 'integer',
              'fixed' => 0,
              'unsigned' => false,

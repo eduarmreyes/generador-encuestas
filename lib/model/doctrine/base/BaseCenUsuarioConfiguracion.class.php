@@ -51,7 +51,7 @@ abstract class BaseCenUsuarioConfiguracion extends sfDoctrineRecord
              'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
-             'autoincrement' => false,
+             'autoincrement' => true,
              'length' => 4,
              ));
         $this->hasColumn('usc_user_id', 'integer', 8, array(

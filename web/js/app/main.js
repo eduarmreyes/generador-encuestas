@@ -1,5 +1,5 @@
 $(document).on("ready", function() {
-	$('.btn, .btn-primary').click(function() {
+	$('.btn.btn-info').click(function() {
 		$(this).button('loading');
 	});
 });

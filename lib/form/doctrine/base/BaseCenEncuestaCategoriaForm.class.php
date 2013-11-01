@@ -16,7 +16,7 @@ abstract class BaseCenEncuestaCategoriaForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'enc_id'                 => new sfWidgetFormInputHidden(),
-      'enc_encuesta_id'        => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('CenEncuesta'), 'add_empty' => false)),
+      'enc_encuesta_id'        => new sfWidgetFormInputText(),
       'enc_categoria_id'       => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('CenCategoria'), 'add_empty' => false)),
       'enc_creado_por'         => new sfWidgetFormInputText(),
       'enc_fecha_creacion'     => new sfWidgetFormDateTime(),
@@ -27,7 +27,7 @@ abstract class BaseCenEncuestaCategoriaForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'enc_id'                 => new sfValidatorChoice(array('choices' => array($this->getObject()->get('enc_id')), 'empty_value' => $this->getObject()->get('enc_id'), 'required' => false)),
-      'enc_encuesta_id'        => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('CenEncuesta'))),
+      'enc_encuesta_id'        => new sfValidatorString(array('max_length' => 50)),
       'enc_categoria_id'       => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('CenCategoria'))),
       'enc_creado_por'         => new sfValidatorInteger(),
       'enc_fecha_creacion'     => new sfValidatorDateTime(),

@@ -14,7 +14,6 @@ Doctrine_Manager::getInstance()->bindComponent('CenEncuestaMaster', 'doctrine');
  * @property integer $encm_modificado_por
  * @property timestamp $encm_fecha_modificacion
  * @property integer $encm_activo
- * @property CenEncuesta $CenEncuesta
  * 
  * @method integer           getEncmId()                  Returns the current record's "encm_id" value
  * @method string            getEncmEncuestaId()          Returns the current record's "encm_encuesta_id" value
@@ -23,7 +22,6 @@ Doctrine_Manager::getInstance()->bindComponent('CenEncuestaMaster', 'doctrine');
  * @method integer           getEncmModificadoPor()       Returns the current record's "encm_modificado_por" value
  * @method timestamp         getEncmFechaModificacion()   Returns the current record's "encm_fecha_modificacion" value
  * @method integer           getEncmActivo()              Returns the current record's "encm_activo" value
- * @method CenEncuesta       getCenEncuesta()             Returns the current record's "CenEncuesta" value
  * @method CenEncuestaMaster setEncmId()                  Sets the current record's "encm_id" value
  * @method CenEncuestaMaster setEncmEncuestaId()          Sets the current record's "encm_encuesta_id" value
  * @method CenEncuestaMaster setEncmCreadoPor()           Sets the current record's "encm_creado_por" value
@@ -31,7 +29,8 @@ Doctrine_Manager::getInstance()->bindComponent('CenEncuestaMaster', 'doctrine');
  * @method CenEncuestaMaster setEncmModificadoPor()       Sets the current record's "encm_modificado_por" value
  * @method CenEncuestaMaster setEncmFechaModificacion()   Sets the current record's "encm_fecha_modificacion" value
  * @method CenEncuestaMaster setEncmActivo()              Sets the current record's "encm_activo" value
- * @method CenEncuestaMaster setCenEncuesta()             Sets the current record's "CenEncuesta" value
+ * @property  $
+ * @property SfGuardUser $
  * 
  * @package    generador_encuestas
  * @subpackage model
@@ -110,8 +109,12 @@ abstract class BaseCenEncuestaMaster extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('CenEncuesta', array(
-             'local' => 'encm_encuesta_id',
-             'foreign' => 'enc_id'));
+        $this->hasMany('SfGuardUser', array(
+             'local' => 'encm_creado_por',
+             'foreign' => 'id'));
+
+        $this->hasMany('SfGuardUser', array(
+             'local' => 'encm_modificado_por',
+             'foreign' => 'id'));
     }
 }

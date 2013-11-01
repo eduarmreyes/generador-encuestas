@@ -16,4 +16,20 @@ class CenCategoriaTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('CenCategoria');
     }
+	
+	/*
+	 * return all the categories
+	 * @param $iHydratationMode integer
+	 */
+	public function getAllCategories($iHydratationMode = null) {
+		return $this->findAll($iHydratationMode);
+	}
+	
+	/*
+	 * 
+	 */
+	public function getAllActiveCategories($iHydratationMode = null) {
+		$return = $this->findBy("cat_activo", 1, $iHydratationMode);
+		return $return;
+	}
 }

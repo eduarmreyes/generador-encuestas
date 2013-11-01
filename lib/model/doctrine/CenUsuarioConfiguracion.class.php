@@ -12,5 +12,7 @@
  */
 class CenUsuarioConfiguracion extends BaseCenUsuarioConfiguracion
 {
-
+	public function __toString() {
+		echo $this->getUscGuider();
+	}
 }

@@ -12,5 +12,7 @@
  */
 class CenCategoria extends BaseCenCategoria
 {
-
+	public function __toString() {
+		echo $this->getCatNombre();
+	}
 }

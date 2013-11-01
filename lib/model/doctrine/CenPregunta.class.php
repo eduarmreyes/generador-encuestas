@@ -12,5 +12,7 @@
  */
 class CenPregunta extends BaseCenPregunta
 {
-
+	public function __toString() {
+		echo $this->getPrePreguntaText();
+	}
 }

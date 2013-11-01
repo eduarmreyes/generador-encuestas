@@ -6,6 +6,10 @@ homepage:
   url:   /
   param: { module: sfGuardUser, action: index }
 
+all:
+  url: /logout
+  param: { module: sfGuardAuth, action: signout }
+
 # generic rules
 # please, remove them by adding more specific rules
 sf_guard_signin:
