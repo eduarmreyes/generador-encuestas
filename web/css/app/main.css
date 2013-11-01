@@ -42,6 +42,39 @@ body {
 .datepicker {
 	cursor: pointer;
 }
+.drop-area#fields .drag-here, .drop-area#fields .drop-space {
+    clear: both;
+    position: relative;
+    margin-bottom: 8px;
+    border: 1px dashed #999999;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    margin-bottom: 6px;
+    background: #eeeeee;
+}
+.drop-area li.drag-here {
+    position: relative;
+    display: block;
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #d7d7d9;
+    font-size: 1.1em;
+    height: 105px;
+    border: 1px dashed #999999;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    color: #999999;
+    background: #ececec;
+    text-align: center;
+    font-family: "Helvetica Neue", Helvetica, Arial, "sans-serif";
+    font-size: 1.2em;
+}
+.drop-area li.drag-here {
+    overflow: hidden;
+    -webkit-transition: height 0.2s ease;
+    -moz-transition: height 0.2s ease;
+    transition: height 0.2s ease;
+}
 .form-signin {
 	border: 1px solid #D8D8D8;
 	border-bottom-width: 2px;
