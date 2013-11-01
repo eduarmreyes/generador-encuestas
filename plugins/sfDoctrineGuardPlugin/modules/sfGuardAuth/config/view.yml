@@ -1,0 +1,32 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/13-View
+
+default:
+  http_metas:
+    viewport:					width=device-width, initial-scale=1.0
+    X-UA-Compatible:	IE=edge,chrome=1
+
+  metas:
+    title:						Generador Encuestas | Seguridad
+    #description:			symfony project
+    #keywords:				symfony, project
+    #language:				en
+    #robots:					index, follow
+    #author:					carcmonge, eduarmreyes
+    
+  stylesheets:    
+    - vendor/normalize.css
+    - vendor/font-awesome.min.css
+    - vendor/bootplus.min.css
+    - vendor/bootplus-responsive.min.css
+    - app/bootplus.rochi.css
+    - app/main.css
+
+  javascripts:    
+    - vendor/jquery-1.10.2.min.js
+    - vendor/bootstrap.min.js
+    - vendor/livevalidation.min.js
+    - app/main.js
+
+  has_layout:					true
+  layout:							login_layout

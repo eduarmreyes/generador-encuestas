@@ -1,0 +1,60 @@
+## BACKEND MAIN MENU
+#Format:
+#alias
+# group: the name of the main tab. this is a reference in case you want a second 
+#        level menu under this option. All the links in the second level menu are grouped under this label
+# label: this is an identifier for this option
+# module: Name of the module the action belongs to
+# action: action to be loaded
+# link_title: the name displayed in the menu bar
+# hidden: Indicates if an option should be showed or not
+# level: of this menu
+# Added Eduardo Mejía
+  # hasChild: in order to work with bootplus style, has child will let the
+  # development know that this option menu has more option inside of it
+# i18n_label: Used for internationalization
+
+#Escalation
+tabEscalation:
+  group: escalation
+  label: escalationTracker
+  module: escalation
+  action: index
+  link_title: Escalation Tracker
+  hidden: no
+  level: 1
+  hasChild: false
+#  i18n_label: __("My Health")
+  credential: [Normal User,Administrator,Developer,Supervisor]
+
+#Reports:
+tabReports:
+  group: reports
+  label: reportsFrontend
+  module: report
+  action: index
+  link_title: Reports
+  hidden: no
+  level: 1
+  hasChild: false
+#  i18n_label: __("Administration")
+  credential: [Administrator,Supervisor,Developer]
+  
+#Administration Area
+tabAdministration:
+  group: administration
+  label: administrationFrontend
+  module: #
+  action: 
+  link_title: Administration
+  hidden: no
+  level: 1
+  hasChild: true
+#  i18n_label: __("Disciplinary Process")
+  credential: [Administrator,Developer]
+  options:
+    optAdministrationCatalogs:
+      group: catalog_admin_active
+      module: admin
+      action: index
+      link_title: Catalogs

@@ -1,0 +1,751 @@
+CenCategoria:
+  connection: doctrine
+  tableName: cen_categoria
+  columns:
+    cat_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    cat_nombre:
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    cat_es_datos_clasificacion:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '0'
+      notnull: true
+      autoincrement: false
+    cat_creado_por:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    cat_fecha_creacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    cat_modificado_por:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    cat_fecha_modificacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    cat_activo:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    SfGuardUser:
+      local: cat_creado_por
+      foreign: id
+      type: one
+    SfGuardUser_2:
+      class: SfGuardUser
+      local: cat_modificado_por
+      foreign: id
+      type: one
+    CenEncuestaCategoria:
+      local: cat_id
+      foreign: enc_categoria_id
+      type: many
+CenEncuesta:
+  connection: doctrine
+  tableName: cen_encuesta
+  columns:
+    enc_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: false
+    enc_nombre:
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    enc_instruccion:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    enc_bem:
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    enc_pais:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    enc_clave:
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    enc_fecha_creacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    enc_creado_por:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    enc_fecha_modificacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    enc_modificado_por:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    enc_activo:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '1'
+      notnull: true
+      autoincrement: false
+  relations:
+    SfGuardUser:
+      local: enc_creado_por
+      foreign: id
+      type: one
+    CenPais:
+      local: enc_pais
+      foreign: pai_id
+      type: one
+    SfGuardUser_3:
+      class: SfGuardUser
+      local: enc_modificado_por
+      foreign: id
+      type: one
+CenEncuestaCategoria:
+  connection: doctrine
+  tableName: cen_encuesta_categoria
+  columns:
+    enc_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    enc_encuesta_id:
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    enc_categoria_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    enc_creado_por:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    enc_fecha_creacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    enc_modificado_por:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    enc_fecha_modificacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    enc_activo:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    CenCategoria:
+      local: enc_categoria_id
+      foreign: cat_id
+      type: one
+    SfGuardUser:
+      local: enc_creado_por
+      foreign: id
+      type: one
+    SfGuardUser_3:
+      class: SfGuardUser
+      local: enc_modificado_por
+      foreign: id
+      type: one
+CenEncuestaMaster:
+  connection: doctrine
+  tableName: cen_encuesta_master
+  columns:
+    encm_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    encm_encuesta_id:
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    encm_creado_por:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    encm_fecha_creacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    encm_modificado_por:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    encm_fecha_modificacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    encm_activo:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    SfGuardUser:
+      local: encm_creado_por
+      foreign: id
+      type: one
+    SfGuardUser_2:
+      class: SfGuardUser
+      local: encm_modificado_por
+      foreign: id
+      type: one
+CenOpcion:
+  connection: doctrine
+  tableName: cen_opcion
+  columns:
+    opc_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    opc_id_pregunta:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    opc_opcion:
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    opc_creador_por:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    opc_fecha_creacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    opc_modificado_por:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    opc_activo:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    SfGuardUser:
+      local: opc_creador_por
+      foreign: id
+      type: one
+    SfGuardUser_2:
+      class: SfGuardUser
+      local: opc_modificado_por
+      foreign: id
+      type: one
+    CenPregunta:
+      local: opc_id_pregunta
+      foreign: pre_id
+      type: one
+CenPais:
+  connection: doctrine
+  tableName: cen_pais
+  columns:
+    pai_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    pai_nombre:
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    pai_fecha_creacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    pai_creado_por:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    pai_fecha_modificacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    pai_modificado_por:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    pai_activo:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '1'
+      notnull: true
+      autoincrement: false
+  relations:
+    SfGuardUser:
+      local: pai_creado_por
+      foreign: id
+      type: one
+    SfGuardUser_2:
+      class: SfGuardUser
+      local: pai_modificado_por
+      foreign: id
+      type: one
+    CenEncuesta:
+      local: pai_id
+      foreign: enc_pais
+      type: many
+CenPregunta:
+  connection: doctrine
+  tableName: cen_pregunta
+  columns:
+    pre_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    pre_id_encuesta:
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    pre_id_tipo_pregunta_opcion:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    pre_pregunta_text:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    pre_posicion:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    pre_padre:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    pre_nota:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    pre_descripcion:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    pre_fecha_creacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    pre_creado_por:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    pre_fecha_modificacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    pre_modificado_por:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    pre_activo:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '1'
+      notnull: true
+      autoincrement: false
+  relations:
+    SfGuardUser:
+      local: pre_creado_por
+      foreign: id
+      type: one
+    CenTipoPreguntaOpcion:
+      local: pre_id_tipo_pregunta_opcion
+      foreign: tpo_id
+      type: one
+    SfGuardUser_3:
+      class: SfGuardUser
+      local: pre_modificado_por
+      foreign: id
+      type: one
+    CenOpcion:
+      local: pre_id
+      foreign: opc_id_pregunta
+      type: many
+CenTipoEncuesta:
+  connection: doctrine
+  tableName: cen_tipo_encuesta
+  columns:
+    tpe_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    tpe_nombre:
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    tpe_fecha_creacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    tpe_creado_por:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    tpe_fecha_modificacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    tpe_modificado_por:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    tpe_activo:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '1'
+      notnull: true
+      autoincrement: false
+CenTipoPreguntaOpcion:
+  connection: doctrine
+  tableName: cen_tipo_pregunta_opcion
+  columns:
+    tpo_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    tpo_tipo_etiqueta:
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    tpo_plantilla_html:
+      type: string(150)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    tpo_fecha_creacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    tpo_creado_por:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    tpo_fecha_modificacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    tpo_modificado_por:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    tpo_activo:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '1'
+      notnull: true
+      autoincrement: false
+  relations:
+    SfGuardUser:
+      local: tpo_creado_por
+      foreign: id
+      type: one
+    SfGuardUser_2:
+      class: SfGuardUser
+      local: tpo_modificado_por
+      foreign: id
+      type: one
+    CenPregunta:
+      local: tpo_id
+      foreign: pre_id_tipo_pregunta_opcion
+      type: many
+CenUsuarioConfiguracion:
+  connection: doctrine
+  tableName: cen_usuario_configuracion
+  columns:
+    usc_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    usc_user_id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    usc_guider:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    usc_creado_por:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    usc_fecha_creacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    usc_modificado_por:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    usc_fecha_modificacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    usc_activo:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    SfGuardUser:
+      local: usc_creado_por
+      foreign: id
+      type: one
+    SfGuardUser_2:
+      class: SfGuardUser
+      local: usc_modificado_por
+      foreign: id
+      type: one
+    SfGuardUser_3:
+      class: SfGuardUser
+      local: usc_user_id
+      foreign: id
+      type: one

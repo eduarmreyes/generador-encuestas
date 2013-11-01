@@ -1,0 +1,39 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/13-View
+
+all:
+  http_metas:
+    content-type: text/html
+
+  metas:
+    title:        Generador Encuestas Backend
+
+  stylesheets:    
+    - vendor/normalize.css
+    - vendor/font-awesome.min.css
+    - vendor/bootplus.min.css
+    - vendor/bootplus-responsive.min.css
+    - vendor/jquery.pnotify.default.css
+    - vendor/jquery.pnotify.default.icons.css
+    - vendor/chosen.min.css
+    - vendor/jquery.switchButton.css
+    - vendor/jquery.dataTables.css
+    - vendor/DT_bootstrap.css
+    - app/bootplus.rochi.css
+    - app/main.css
+
+  javascripts:    
+    - vendor/jquery-1.10.2.min.js
+    - vendor/jquery-ui-1.10.3.custom.min.js
+    - vendor/bootstrap.min.js
+    - vendor/jquery.pnotify.min.js
+    - vendor/livevalidation.min.js
+    - vendor/chosen.jquery.min.js
+    - vendor/jquery.switchButton.js
+    - vendor/jquery.dataTables.min.js
+    - vendor/DT_bootstrap.js
+    - app/usefullFunctions.js
+    - app/main.js
+
+  has_layout:     true
+  layout:         layout
