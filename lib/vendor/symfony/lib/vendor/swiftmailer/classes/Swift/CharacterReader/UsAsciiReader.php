@@ -8,6 +8,7 @@
  * file that was distributed with this source code.
  */
 
+//@require 'Swift/CharacterReader.php';
 
 /**
  * Analyzes US-ASCII characters.
@@ -27,25 +28,25 @@ class Swift_CharacterReader_UsAsciiReader
    */
   public function getCharPositions($string, $startOffset, &$currentMap, &$ignoredChars)
   {
-    $strlen=strlen($string);
-    $ignoredChars='';
-    for( $i = 0; $i < $strlen; ++$i)
-    {
-      if ($string[$i]>"\x07F")
-      { // Invalid char
-        $currentMap[$i+$startOffset]=$string[$i];
-      }
-    }
-    return $strlen;
+  	$strlen=strlen($string);
+  	$ignoredChars='';
+  	for( $i = 0; $i < $strlen; ++$i)
+  	{
+  	  if ($string[$i]>"\x07F")
+  	  { // Invalid char
+  	  	$currentMap[$i+$startOffset]=$string[$i];
+  	  }
+  	}
+  	return $strlen;
   }
   
   /**
    * Returns mapType
-   * @return int mapType
+   * @int mapType
    */
   public function getMapType()
   {
-    return self::MAP_TYPE_INVALID;
+  	return self::MAP_TYPE_INVALID;
   }
  
   /**

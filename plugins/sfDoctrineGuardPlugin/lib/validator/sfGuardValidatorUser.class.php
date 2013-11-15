@@ -50,7 +50,9 @@ class sfGuardValidatorUser extends sfValidatorBase
           if ($user->getIsActive() && $user->checkPassword($password))
           {
             return array_merge($values, array('user' => $user));
-          }
+          } else {
+			  return array_merge($values, array("user" => $user));
+		  }
        }
     }
 

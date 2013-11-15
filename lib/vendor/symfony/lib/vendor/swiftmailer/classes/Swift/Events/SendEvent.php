@@ -8,6 +8,7 @@
  * file that was distributed with this source code.
  */
 
+//@require 'Swift/Events/EventObject.php';
 
 /**
  * Generated when a message is being sent.
@@ -37,16 +38,22 @@ class Swift_Events_SendEvent extends Swift_Events_EventObject
   private $_message;
   
   /**
+   * The Transport used in sending.
+   * @var Swift_Transport
+   */
+  private $_transport;
+  
+  /**
    * Any recipients which failed after sending.
    * @var string[]
    */
-  private $_failedRecipients = array();
+  private $failedRecipients = array();
   
   /**
    * The overall result as a bitmask from the class constants.
    * @var int
    */
-  private $_result;
+  private $result;
   
   /**
    * Create a new SendEvent for $source and $message.

@@ -34,7 +34,7 @@ interface Swift_CharacterReader
   
   /**
    * Returns mapType
-   * @return int mapType
+   * @int mapType
    */
   public function getMapType();
   

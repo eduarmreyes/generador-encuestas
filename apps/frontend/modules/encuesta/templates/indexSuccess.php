@@ -3,6 +3,7 @@ use_stylesheet("vendor/bootstrap-wizard.css");
 use_stylesheet("vendor/chosen.min.css");
 use_javascript("vendor/bootstrap-wizard.min.js");
 use_javascript("vendor/chosen.jquery.min.js");
+use_javascript("vendor/jquery-ui-1.10.3.custom.min.js");
 ?>
 <style type="text/css">
 	.wizard-modal p {
@@ -22,6 +23,9 @@ use_javascript("vendor/chosen.jquery.min.js");
 	#wizard-ns-detail-servers > li > img {
 		padding-right:5px;
 	}
+	#lista_preguntas_configuradas > li {
+		/*background: #fff;*/
+	}
 
 	.wizard-modal .chzn-container .chzn-results {
 		max-height:150px;
@@ -29,11 +33,37 @@ use_javascript("vendor/chosen.jquery.min.js");
 	.wizard-addl-subsection {
 		margin-bottom:40px;
 	}
+	.drop-area.ui-sortable {
+		margin: 0;
+		overflow: hidden;
+		width: 100% !important;
+	}
+	.drop-area.ui-sortable > li {
+		width: 99%;
+	}
+	.drop-area > li {
+		background: #fff;
+	}
+	.drop-area.ui-sortable > li > div {
+		margin-top: 0.7em;
+	}
+	.pregunta {
+		display: inline-block;
+		margin: auto 5px 5px auto;
+		width: 10em;
+		background: #ddd;
+		padding: 10px;
+		border-radius: 2px;
+		border: 1px solid #b1b1b1;
+		border-bottom: 1px solid #a5a5a5;
+		border-top: 1px solid #cfcfcf;
+		cursor: pointer;
+	}
 </style>
 <div class="wizard" id="some-wizard">
     <h1>Crear nueva encuesta</h1>
     <div class="wizard-card form-horizontal" data-cardname="enc_categoria">
-		<h3>Seleccione o cree la categoría de la encuesta</h3>
+		<h3>Categorías</h3>
 		<div class="alert alert-info">
 			Para crear una nueva categoría, dar click sobre el ícono <i class="icon-plus"></i>
 		</div>
@@ -49,13 +79,42 @@ use_javascript("vendor/chosen.jquery.min.js");
 		</div>
     </div>
     <div class="wizard-card" data-cardname="enc_datos_clasificacion">
-        <h3>Datos de Clasificación</h3>
-		<ul class="nav nav-tabs">
-			<li><a href="#home" data-toggle="tab">Home</a></li>
-			<li><a href="#profile" data-toggle="tab">Profile</a></li>
-			<li><a href="#messages" data-toggle="tab">Messages</a></li>
-			<li><a href="#settings" data-toggle="tab">Settings</a></li>
-		</ul>    </div>
+        <h3>Encuesta</h3>
+		<ul id="categorias_panel" class="nav nav-pills">
+			<li class="active"><a href="#DatosDeClasificacion" data-toggle="tab">Datos de clasificación</a></li>
+		</ul>
+		<div id="tab-content" class="tab-content">
+			<div class="tab-pane active" id="DatosDeClasificacion">
+				<ul id="lista_preguntas_configuradas" class="drop-area ui-sortable">
+					<li>
+						<div>Other options</div>
+					</li>
+					<li class="drag-here ui-droppable small" style="display: block;">
+						<div>Arrastra y suelta las preguntas aquí</div>
+					</li>
+				</ul>
+				<div style="position: absolute;">
+					<ul id="lista_preguntas">
+						<li class="pregunta">
+							<div>Respuesta corta</div>
+						</li>
+						<li class="pregunta">
+							<div>Varias respuestas</div>
+						</li>
+						<li class="pregunta">
+							<div>Respuesas largas</div>
+						</li>
+						<li class="pregunta">
+							<div>Sí / No</div>
+						</li>
+						<li class="pregunta">
+							<div>Desplegable</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
     <div class="wizard-card" data-cardname="enc_encuesta">
         <h3>Formularios de encuestas</h3>
         Some other content
@@ -119,11 +178,24 @@ use_javascript("vendor/chosen.jquery.min.js");
 				}
 			}
 		});
+		// Encuesta
 		$("#categoria_id").chosen({
 			no_results_text: "No se encontró ninguna categoría",
 			width: "20em",
 		});
 		fnGetCategories("#categoria_id");
+		/*
+		 * JS Code to handle sortable lists
+		 */
+		$("#lista_preguntas, #lista_preguntas_configuradas").sortable({
+			connectWith: ".drop-area",
+			cursor: "move",
+			forcePlaceholderSize: true,
+			helper: "clone",
+			opacity: 0.7
+		});
+
+		$("#lista_preguntas, #lista_preguntas_configuradas").disableSelection();
 		$(function() {
 			var wizard = fnInitiateWizard("#some-wizard");
 			wizard.cards["enc_categoria"].on("validate", function(card) {
@@ -133,6 +205,12 @@ use_javascript("vendor/chosen.jquery.min.js");
 					fnAddWarningNotify("Seleccione la categoría antes de seguir");
 					return false;
 				}
+				$("#categoria_id>option:selected").each(function() {
+					var sPanelOption = "<li><a href='#" + $(this).text().split(" ").join("_") + "' data-toggle='tab'>" + $(this).text() + "</a></li>";
+					var sTabContent = "<div class='tab-pane' id='" + $(this).text().split(" ").join("_") + "'></div>";
+					$("#categorias_panel").append(sPanelOption);
+					$("#tab-content").append(sTabContent);
+				});
 				return true;
 			});
 			wizard.show();

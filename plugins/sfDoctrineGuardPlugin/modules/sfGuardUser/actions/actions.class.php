@@ -160,4 +160,14 @@ class sfGuardUserActions extends autoSfGuardUserActions {
 		return sfView::NONE;
 	}
 
+	public function executeOAuth(sfWebRequest $request) {
+		$this->forwardUnless($authCredentials = $request->getParameter("credenciales", null), "sfGuardAuth", "signin");
+		$oSfGuardUser = Doctrine_Core::getTable("sfGuardUser")->findOneBy("username", $authCredentials["username"], Doctrine_Core::HYDRATE_ARRAY);
+		$algorithm = $oSfGuardUser["algorithm"];
+		$bOAuth = (!empty($oSfGuardUser) && isset($authCredentials["password"]) && $oSfGuardUser["password"] == call_user_func_array($algorithm, array($oSfGuardUser["salt"] . $authCredentials["password"]))) ? array("auth" => true) : array("auth" => false);
+		$content = json_encode($bOAuth);
+		$this->getResponse()->setContent($content);
+		return sfView::NONE;
+	}
+
 }

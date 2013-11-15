@@ -8,6 +8,9 @@
  * file that was distributed with this source code.
  */
 
+//@require 'Swift/Transport.php';
+//@require 'Swift/Mime/Message.php';
+//@require 'Swift/Events/EventListener.php';
 
 /**
  * Redudantly and rotationally uses several Transports when sending.
@@ -53,7 +56,7 @@ class Swift_Transport_LoadBalancedTransport implements Swift_Transport
    * 
    * @return array Swift_Transport
    */
-  public function getTransports()
+  public function getTransports(array $transports)
   {
     return array_merge($this->_transports, $this->_deadTransports);
   }
@@ -90,7 +93,7 @@ class Swift_Transport_LoadBalancedTransport implements Swift_Transport
   /**
    * Send the given Message.
    * 
-   * Recipient/sender data will be retrieved from the Message API.
+   * Recipient/sender data will be retreived from the Message API.
    * The return value is the number of recipients who were accepted for delivery.
    * 
    * @param Swift_Mime_Message $message

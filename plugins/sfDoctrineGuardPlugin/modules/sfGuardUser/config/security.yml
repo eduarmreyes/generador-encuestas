@@ -1,0 +1,5 @@
+## YAML Template.
+---
+
+oAuth:
+  is_secure: false

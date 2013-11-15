@@ -18,7 +18,7 @@
  * @subpackage request
  * @author     Fabien Potencier <fabien.potencier@symfony-project.com>
  * @author     Sean Kerr <sean@code-box.org>
- * @version    SVN: $Id: sfWebRequest.class.php 33544 2012-10-05 10:42:42Z fabien $
+ * @version    SVN: $Id: sfWebRequest.class.php 32729 2011-07-05 15:23:04Z www-data $
  */
 class sfWebRequest extends sfRequest
 {
@@ -633,13 +633,12 @@ class sfWebRequest extends sfRequest
   public function splitHttpAcceptHeader($header)
   {
     $values = array();
-    $groups = array();
     foreach (array_filter(explode(',', $header)) as $value)
     {
       // Cut off any q-value that might come after a semi-colon
       if ($pos = strpos($value, ';'))
       {
-        $q     = trim(substr($value, strpos($value, '=') + 1));
+        $q     = (float) trim(substr($value, strpos($value, '=') + 1));
         $value = substr($value, 0, $pos);
       }
       else
@@ -647,20 +646,15 @@ class sfWebRequest extends sfRequest
         $q = 1;
       }
 
-      $groups[$q][] = $value;
-    }
-
-    krsort($groups);
-
-    foreach ($groups as $q => $items) {
-      if (0 < $q) {
-        foreach ($items as $value) {
-          $values[] = trim($value);
-        }
+      if (0 < $q)
+      {
+        $values[trim($value)] = $q;
       }
     }
 
-    return $values;
+    arsort($values);
+
+    return array_keys($values);
   }
 
   /**

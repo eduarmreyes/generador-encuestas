@@ -8,3 +8,5 @@ all:
     remember_key_expiration_age: 86400
     remember_cookie_name: generador_encuestas_backend_RememberMe
     routes_register: false
+    success_signin_url:        guard/users
+    session_name: generadorEncuestasBackendSession    

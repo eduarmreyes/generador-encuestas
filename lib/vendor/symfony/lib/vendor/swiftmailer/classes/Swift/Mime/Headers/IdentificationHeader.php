@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+//@require 'Swift/Mime/Headers/AbstractHeader.php';
+//@require 'Swift/RfcComplianceException.php';
 
 /**
  * An ID MIME Header for something like Message-ID or Content-ID.
@@ -30,12 +32,11 @@ class Swift_Mime_Headers_IdentificationHeader
   /**
    * Creates a new IdentificationHeader with the given $name and $id.
    * @param string $name
-   * @param Swift_Mime_Grammar $grammar
    */
-  public function __construct($name, Swift_Mime_Grammar $grammar)
+  public function __construct($name)
   {
     $this->setFieldName($name);
-    parent::__construct($grammar);
+    $this->initializeGrammar();
   }
   
   /**
@@ -72,12 +73,12 @@ class Swift_Mime_Headers_IdentificationHeader
   
   /**
    * Set the ID used in the value of this header.
-   * @param string|array $id
+   * @param string $id
    * @throws Swift_RfcComplianceException
    */
   public function setId($id)
   {
-    $this->setIds(is_array($id) ? $id : array($id));
+    return $this->setIds(array($id));
   }
   
   /**
@@ -102,10 +103,22 @@ class Swift_Mime_Headers_IdentificationHeader
   {
     $actualIds = array();
     
-    foreach ($ids as $id)
+    foreach ($ids as $k => $id)
     {
-      $this->_assertValidId($id);
-      $actualIds[] = $id;
+      if (preg_match(
+        '/^' . $this->getGrammar('id-left') . '@' .
+        $this->getGrammar('id-right') . '$/D',
+        $id
+        ))
+      {
+        $actualIds[] = $id;
+      }
+      else
+      {
+        throw new Swift_RfcComplianceException(
+          'Invalid ID given <' . $id . '>'
+          );
+      }
     }
     
     $this->clearCachedValueIf($this->_ids != $actualIds);
@@ -145,22 +158,4 @@ class Swift_Mime_Headers_IdentificationHeader
     return $this->getCachedValue();
   }
   
-  /**
-   * Throws an Exception if the id passed does not comply with RFC 2822.
-   * @param string $id
-   * @throws Swift_RfcComplianceException
-   */
-  private function _assertValidId($id)
-  {
-    if (!preg_match(
-      '/^' . $this->getGrammar()->getDefinition('id-left') . '@' .
-      $this->getGrammar()->getDefinition('id-right') . '$/D',
-      $id
-      ))
-    {
-      throw new Swift_RfcComplianceException(
-        'Invalid ID given <' . $id . '>'
-        );
-    }
-  }
 }

@@ -8,6 +8,9 @@
  * file that was distributed with this source code.
  */
 
+//@require 'Swift/Events/SendListener.php';
+//@require 'Swift/Events/SendEvent.php';
+//@require 'Swift/Plugins/Decorator/Replacements.php';
 
 /**
  * Allows customization of Messages on-the-fly.
@@ -16,7 +19,6 @@
  * @subpackage Plugins
  * 
  * @author Chris Corbyn
- * @author Fabien Potencier
  */
 class Swift_Plugins_DecoratorPlugin
   implements Swift_Events_SendListener, Swift_Plugins_Decorator_Replacements
@@ -26,10 +28,10 @@ class Swift_Plugins_DecoratorPlugin
   private $_replacements;
   
   /** The body as it was before replacements */
-  private $_originalBody;
+  private $_orginalBody;
 
-  /** The original headers of the message, before replacements */
-  private $_originalHeaders = array();
+  /** The original subject of the message, before replacements */
+  private $_originalSubject;
 
   /** Bodies of children before they are replaced */
   private $_originalChildBodies = array();
@@ -55,23 +57,11 @@ class Swift_Plugins_DecoratorPlugin
    * the object should return just the array of replacements for the address
    * given to {@link Swift_Plugins_Decorator_Replacements::getReplacementsFor()}.
    * 
-   * @param mixed $replacements Array or Swift_Plugins_Decorator_Replacements
+   * @param mixed $replacements
    */
   public function __construct($replacements)
   {
-    $this->setReplacements($replacements);
-  }
-
-  /**
-   * Sets replacements.
-   *
-   * @param mixed $replacements Array or Swift_Plugins_Decorator_Replacements
-   *
-   * @see __construct()
-   */
-  public function setReplacements($replacements)
-  {
-    if (!($replacements instanceof \Swift_Plugins_Decorator_Replacements))
+    if (!($replacements instanceof Swift_Plugins_Decorator_Replacements))
     {
       $this->_replacements = (array) $replacements;
     }
@@ -105,40 +95,15 @@ class Swift_Plugins_DecoratorPlugin
         $this->_originalBody = $body;
         $message->setBody($bodyReplaced);
       }
-
-      foreach ($message->getHeaders()->getAll() as $header)
+      $subject = $message->getSubject();
+      $subjectReplaced = str_replace(
+        $search, $replace, $subject
+        );
+      if ($subject != $subjectReplaced)
       {
-        $body = $header->getFieldBodyModel();
-        $count = 0;
-        if (is_array($body))
-        {
-          $bodyReplaced = array();
-          foreach ($body as $key => $value)
-          {
-            $count1 = 0;
-            $count2 = 0;
-            $key = is_string($key) ? str_replace($search, $replace, $key, $count1) : $key;
-            $value = is_string($value) ? str_replace($search, $replace, $value, $count2) : $value;
-            $bodyReplaced[$key] = $value;
-
-            if (!$count && ($count1 || $count2))
-            {
-              $count = 1;
-            }
-          }
-        }
-        else
-        {
-          $bodyReplaced = str_replace($search, $replace, $body, $count);
-        }
-
-        if ($count)
-        {
-          $this->_originalHeaders[$header->getFieldName()] = $body;
-          $header->setFieldBodyModel($bodyReplaced);
-        }
+        $this->_originalSubject = $subject;
+        $message->setSubject($subjectReplaced);
       }
-
       $children = (array) $message->getChildren();
       foreach ($children as $child)
       {
@@ -211,16 +176,10 @@ class Swift_Plugins_DecoratorPlugin
         $message->setBody($this->_originalBody);
         $this->_originalBody = null;
       }
-      if (!empty($this->_originalHeaders))
+      if (isset($this->_originalSubject))
       {
-        foreach ($message->getHeaders()->getAll() as $header)
-        {
-          if (array_key_exists($header->getFieldName(), $this->_originalHeaders))
-          {
-            $header->setFieldBodyModel($this->_originalHeaders[$header->getFieldName()]);
-          }
-        }
-        $this->_originalHeaders = array();
+        $message->setSubject($this->_originalSubject);
+        $this->_originalSubject = null;
       }
       if (!empty($this->_originalChildBodies))
       {
